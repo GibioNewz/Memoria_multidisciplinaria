@@ -1,0 +1,94 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{array}
+
+% Definición de un comando para las tablas/cajas de respuesta
+\newcommand{\cajarespuesta}[2]{
+    \vspace{0.2cm}
+    \noindent \textbf{#1} \\
+    \begin{tabularx}{\textwidth}{|X|}
+    \hline
+    #2 % Aquí es donde aparecerá tu texto
+    \vspace{0.1cm} \\ % Un pequeño margen inferior
+    \hline
+    \end{tabularx}
+}
+\setlength{\parindent}{0pt}
+\begin{document}
+
+% --- Portada ---
+\begin{titlepage}
+    \centering
+    % Descomenta la siguiente línea y sube tu logo si lo tienes
+    \includegraphics[width=0.8\textwidth]{LOGO-USM-HORIZONTAL_RGB.png} \\[1cm] 
+    
+    {\Large \textbf{UNIVERSIDAD TÉCNICA FEDERICO SANTA MARÍA}} \\[0.2cm]
+    {\large LÍDER EN INGENIERÍA, CIENCIA Y TECNOLOGÍA} \\[2.5cm]
+
+    {\Huge \textbf{Desafío \#\_\_}} \\[2cm]
+
+    {\Large
+    Gabriel José Ignacio Zapata Salazar \\
+    Yuze Zhou Zhou \\
+    }
+    
+    \vfill
+
+    {\large
+    Programa Memorias Multidisciplinarias \\
+    Módulo Design Thinking \\
+    Valparaíso \\
+    2026
+    }
+\end{titlepage}
+
+\newpage
+
+% --- Contenido del Documento ---
+
+\noindent
+\textbf{Entrega \#1} \hfill San Joaquín, 15 de Abril de 2026 \\[1cm]
+
+\cajarespuesta{Número del Desafío:}{32}
+
+\cajarespuesta{Organización:}{Liberty Latinamerica}
+
+\cajarespuesta{Nombre del desafío:}{Modelo predictivo para mantenimiento en redes de acceso FTTH}
+
+\cajarespuesta{Pregunta Desafío:}{Que variables técnicas influyen o afectan el normal funcionamiento de una red FTTH?, definidas las variables técnicas la red FTHH cuales correlacionan mejor para elaborar un modelo predictivo de manteniendo preventivo en redes FTTH?, existe alguna relación entre las mejoras obtenidas a partir del modelo predictivo en redes FTTH con la reducción de Churn o mejora de NPS?}
+
+\cajarespuesta{Descripción del Desafío:}{En LLA las redes de acceso FTTH representa un tercio de los clientes internet en redes accesos. Por tanto el detectar fallas en la red son primordiales para asegurar el buen servicio. Si bien los materiales y componentes son pasivos en la planta externa (OSP Outside Plant). Por otro lado las redes de acceso FTTH corresponden a tecnologías de diferentes vendors o fabricante tales como Huawei, Nokia, Adtran, Calix en tanto los ONT también son de variados vendors o fabricantes tales como, Huawei, Nokia, Adtran, Calix, Sercomm, Evolution.}
+
+\cajarespuesta{Beneficios:}{Reducir las falla masivas en redes FTTH mejorar experiencia de clientes FTTH reducir Churn voluntario mejorar NPS}
+
+\cajarespuesta{Recursos:}{Red FTTH (OLT) CPE ONU de distinto fabricantes Plataforma de monitoreo para redes FTTH Data sources (FTTH, CPE, Churn, NPS, etc)}
+
+\cajarespuesta{Grado de innovación:}{el lograr los costos de reparaciones reactivas por medio de modelo de mantenimiento preventivo lo que también podrá mejorar la experiencia de los usuarios interterritorial en redes FTTH así como mejoras de otras variables del negocio como son reducción de Churn y mejora del producto internet FTTH (NPS)}
+
+\cajarespuesta{Carreras solicitadas:}{Ingeniería civil telemática}
+\newpage
+\cajarespuesta{Contacto:}{Pedro.Munozmartinez@lla.com, gabriel.zapatas@usm.cl y Yu.Zhou@usm.cl}
+
+\cajarespuesta{Comentarios recibidos y nuevos hallazgos:}{Próximas reuniones:}
+
+        \small % Reduce un poco el tamaño de la letra
+        \setlength{\tabcolsep}{4pt} % Reduce el espacio horizontal entre columnas
+        \renewcommand{\arraystretch}{1.4} % Ajusta un poco el espacio vertical
+        
+        \begin{tabularx}{1\textwidth}{|X|c|c|} % X ajusta el ancho automáticamente
+        \hline
+        \textbf{Actividad} & \textbf{Fecha} & \textbf{Modalidad} \\ \hline
+        Presentación Hito 1: Definición Técnica del Problema. & 29 de mayo & Online \\ \hline
+        Presentación Hito 2: Diseño Preliminar. & 11 de julio & Online \\ \hline
+        Presentación Hito 3: Prototipo Preliminar. & 25 de sept. & Online \\ \hline
+        Presentación Hito 4: Prototipo Funcional. & 06 de nov. & Presencial \\ \hline
+        \end{tabularx}
+
+
+
+\end{document}
