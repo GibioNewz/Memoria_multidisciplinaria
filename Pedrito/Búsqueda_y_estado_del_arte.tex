@@ -125,4 +125,50 @@ Scopus & \instruccion{Ingresa tu ecuación} & \instruccion{Filtros} & \instrucci
     \item \textbf{Estado del arte general:} \instruccion{Breve párrafo resumiendo hacia dónde se mueve la industria en este tema.}
 \end{enumerate}
 
+
+
+
+\section{Descripción de recursos}
+
+En esta sección se describen los parámetros extraidos de los recursos. Actualmente la información se distribuyen en tres documentos:
+
+\begin{itemize}
+    \item \textbf{ONT}: % Ingresa descipciön
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+    \item \textbf{PON}: % Ingresa descripción
+   \begin{enumerate}
+        \item 
+    \end{enumerate}
+    \item \textbf{NOC (Network Operating Center)}: Mide la salud general por volumen de las ONT según la región: 
+    \begin{enumerate}
+        \item Report\_date: Fecha del reporte generado según la configuración $dd/MM/yyyy$. Donde $dd$ indica el día, $MM$ indica el mes y $yyyy$ el año.
+        \item Report\_Time: Horario del reporte generado según la configuración $HH:mm:ss$. Donde $HH$ indica la hora, $mm$ indica los minutos y $ss$ indica los segundos.
+        \item Country: País o Región en donde se emite el reporte.
+        \item Total\_ONTs: indica la cantidad total que posee el país.
+        \item ONTs\_in\_Service: Cantidad total de ONTs en funcionamiento.
+        \item ONT\_in\_Outage: Cantidad total de ONTs fuera de servicio. 
+        \item Service\_Availability\_\%: Indica el porcentaje de ONTs que están en funcionamiento respecto al total del país.
+        \item Outage\_\%: Indica el porcentaje de ONTs fuera de servicio respecto al total del país.
+        \item Subscribers: Cantidad de clientes únicos que tienen un contrato activo con el proveedor de servicio.
+        \item Broadband: Ancho de banda permitido por cada ONT según el país.
+        \item Circuit\_Source: Cantidad de hogares (rutas) que provee una ONT. %Verificar parametro
+        \item Source\_File: Metadatos en donde ha sido extraído la información. Tiene la estructura "powerbi\_ready\_summary\_$yyyyMMdd$\_$HHmmss$.csv".   
+        \item Folder\_Date y Processed\_Timestamp: Fecha de procesamiento del volumen de ONTs.
+    \end{enumerate}
+
+
+
+    \section*{Estado del arte}
+
+
+
+
+\end{itemize}
+
+
+
+
+
 \end{document}
