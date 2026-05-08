@@ -133,7 +133,7 @@ Scopus & \instruccion{Ingresa tu ecuación} & \instruccion{Filtros} & \instrucci
 En esta sección se describen los parámetros extraidos de los recursos. Actualmente la información se distribuyen en tres documentos:
 
 \begin{itemize}
-    \item \textbf{ONT}: Monitorea los niveles de potencia óptica que recibe cada ONT según su identificación por número serial.
+    \item \textbf{ONT}: Monitorea los niveles de potencia óptica que recibe cada ONT según su identificación por número serial o cliente.
     \begin{enumerate}
         \item \textbf{Acct:} Numero de cuenta del cliente. Existen casos en los que no se ha logrado registrar, posiblemente por errores de sincronización. 
         \item \textbf{Name:} Nombre del cliente. Existen casos en los que no se ha logrado registrar, posiblemente por errores de sincronización. 
@@ -153,9 +153,21 @@ En esta sección se describen los parámetros extraidos de los recursos. Actualm
         \item \textbf{Alarm date:} Fecha exacta de la falla en el formato $dd-MM-yyyy hh:mm:ss$ donde $dd$ es el día, $MM$ es el mes, $yyyy$ el año, $hh$ la hora, $mm$ los minutos y $ss$ los segundos.
     \end{enumerate}
 
-    \item \textbf{PON}: % Ingresa descripción
+    \item \textbf{PON}: Mide el rendimeinto de los puertos/Spliters PON
    \begin{enumerate}
-        \item 
+        \item \textbf{Site name:} Identificador de la ubicación física de la central y del fabricante del equipo.
+        \item \textbf{OLT:} 
+        \item \textbf{Card:} Indica número de ranuras (slots) del equipo.
+        \item \textbf{PON:} Númeo del puerto físico de la ranura. A parti de este puerto sale la fibra  que viaja po la calle y se divide mediante splitters a los hogares.
+        \item \textbf{Total ONTs:} Cantidad total de terminales de red óptica que están aprovisionados y conectados a este PON específico.
+        \item \textbf{Potentially impacted ONTs:} Número absoluto de clientes bajo el puerto que presentan anomalías, desconexiones o métricas fuera de servicio.
+        \item \textbf{Potentially impacted Percentage:} Razón entre las ONTs impactadas contra el total de ellas. 
+        \item \textbf{Degradation Score:} Puntaje que indica nicvel de estrés operativo en el puerto específico.
+        \item \textbf{QoE:}  Calidad de experiencia estimada de los usuarios a través de dicha rama en la red PON. 
+        \item \textbf{Stressed-Light Level issues:} Contado de equipos bajo dicha rama que repotan problemas de niveles de potencia óptica, como atenuación fuerte (probablemnte por una falla a nivel físico).
+        \item \textbf{Fault-BIP Errors issues:} Error de recepción de bits %Revisar este parámetro
+        \item \textbf{Alarm Count:} Sumatoria de alarmas generadas por los dispositivos de la rama en dicha red PON %Revisar parámetro 
+        \item \textbf{Fechas:} Evolución por día de acuerdo al parámetro \textbf{Degradation Score}.  
     \end{enumerate}
     \item \textbf{NOC (Network Operating Center)}: Mide la salud general por volumen de las ONT según la región: 
     \begin{enumerate}
@@ -169,11 +181,78 @@ En esta sección se describen los parámetros extraidos de los recursos. Actualm
         \item Outage\_\%: Indica el porcentaje de ONTs fuera de servicio respecto al total del país.
         \item Subscribers: Cantidad de clientes únicos que tienen un contrato activo con el proveedor de servicio.
         \item Broadband: Ancho de banda permitido por cada ONT según el país.
-        \item Circuit\_Source: Cantidad de hogares (rutas) que provee una ONT. %Verificar parametro
+        \item Circuit\_Source: %Cantidad de hogares (rutas) que provee una ONT. %Verificar parametro
         \item Source\_File: Metadatos en donde ha sido extraído la información. Tiene la estructura "powerbi\_ready\_summary\_$yyyyMMdd$\_$HHmmss$.csv".   
         \item Folder\_Date y Processed\_Timestamp: Fecha de procesamiento del volumen de ONTs.
     \end{enumerate}
 
+
+    \section*{Definición técnica del Problema}
+    \subsection*{Perfil Técnico}
+        \begin{itemize}
+            \item Requisitos del Sistema:  
+            \begin{itemize}
+                \item Software: Se utilizará un entorno que logre ejecutar python versión 3.x, Librerías de procesamiento de datos (Pandas, Numpy), framewoks de Machine learning como Sckitlearning, XGboost, Tensoflow, entre otros de acuerdo a las técnicas de machine learning escogidas. Herramientas visualización (Matplotlib).
+                \item Hardware: Es probable que el entrenamiento sea la parte más pesada del poceso, por lo que contar con un buen equipo será escencial para optimizar el tiempo de cómputo en el entrenameinto. Es deseable contar con mínimo de 16 GB de RAM, CPU multihilo; especialmente para técnicas de Aprendizaje reforzado (Reinforcement learning) en técnicas como Actor Crítico. También es deseable contar con GPU, deseable NVIDIA por compatbilidad con la mayoría de frameworks.  
+            \end{itemize}
+
+            \item Requerimientos Funcionales.
+            \begin{itemize}
+                \item Requerimiento 1: El sistema debe ingestar archivos de telemetría en formato CSV provenientes de los niveles NOC, PON y ONT.
+                \item Requerimiento 2: El sistema debe limpiar y normalizar los datos, eliminando datos vaciós no registrados o registros inconsistentes.
+                \item Requerimiento 3: El sistema debe detectar patrones de degradación óptica (caída de Potencia Rx) y lógicos (incremento de errores BIP).
+            \end{itemize}
+            \item Requerimientos de Interfaces.
+            \item Requerimientos de Ambiente.
+            \item Arquitectura del Sistema.
+            \item Esquema General del Sistema.
+            \item Descripción de Componentes.
+            \item Matriz de	Requisitos Funcionales y Componentes. 
+            \item Gestión de Riesgos.
+            \item Supuestos.
+            \item Dependencias.
+            \item Restricciones.
+            \item Riesgos.
+        \end{itemize}
+    \subsection*{Perfil Comercial/ Industrial}
+    \begin{itemize}
+            \item Marco General.
+            \item Diagnóstico.
+            \item \textbf{Metodología:} 
+            \begin{enumerate}
+                \item Ingesta y Limpieza de los datos: Se filtran los datos que no contienen contenido o campos vacíos selectivos.
+                \item Feature engineering: Se crean nuevas variables para el posterior análisis a partir de datos preexistentes que sirvan para entrenar el modelo posterior.
+                \item Estado del arte: Se realizará un estudio del estado del arte para encontrar comparar modelos y técnicas de machine learning que normalmente se utiliza en el mantenimiento predictivo en redes FTTH. Se pondrá especial énfasis en el estudio bibliográfico en modelos de aprendizaje supervisado como Random forest o XGBoost. 
+                \item Entrenamiento: A partir del estado del Arte, se escogen las técnicas estudiadas y se propondrá modelos para el entrenamiento. Se destina una parte de los datos a entrenamiento y el restante para validación.
+                \item Validación: Se mide la precisión a patir de los datos de validación y se obtienen métricas por definir para concluir los resultados.     
+            \end{enumerate}
+
+
+            \item Perfil.
+            \item Estudio de Mercado. 
+            \item Estudio Técnico.
+            \item Estudio Organizacional y administrativo.	
+            \item Matriz de	Requisitos Funcionales y Componentes. 
+            \item Estudio Legal y Ambiental.
+            \item Estudio Económico. 
+            \item Estudio Financiero. 
+        \end{itemize}
+    \subsection*{Perfil de Arquitectura}
+        \begin{itemize}
+            \item Definición contexto intervenir. 
+            \item Definición programa arquitectura. 
+            \item Estudio casos análogos.
+        \end{itemize}
+    \subsection*{Perfil Diseño de Productos}
+
+        \begin{itemize}
+            \item Identificación de elementos relevantes(usuario, mercado, producto y contexto) 
+            \item Diagramación de la situación inicial y su estado de conflicto.  
+            \item Metodología para acometer objetivos de la problemática planteada.
+            \item Etapas sistemáticas y estructuradas para acometer el problema.
+            \item Identificación de recursos.
+            \item Definición de soluciones parciales y conceptos.
+        \end{itemize}
 
 
     \section*{Estado del arte}
