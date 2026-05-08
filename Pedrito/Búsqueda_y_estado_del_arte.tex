@@ -193,7 +193,7 @@ En esta sección se describen los parámetros extraidos de los recursos. Actualm
             \item Requisitos del Sistema:  
             \begin{itemize}
                 \item Software: Se utilizará un entorno que logre ejecutar python versión 3.x, Librerías de procesamiento de datos (Pandas, Numpy), framewoks de Machine learning como Sckitlearning, XGboost, Tensoflow, entre otros de acuerdo a las técnicas de machine learning escogidas. Herramientas visualización (Matplotlib).
-                \item Hardware: Es probable que el entrenamiento sea la parte más pesada del poceso, por lo que contar con un buen equipo será escencial para optimizar el tiempo de cómputo en el entrenameinto. Es deseable contar con mínimo de 16 GB de RAM, CPU multihilo; especialmente para técnicas de Aprendizaje reforzado (Reinforcement learning) en técnicas como Actor Crítico. También es deseable contar con GPU, deseable NVIDIA por compatbilidad con la mayoría de frameworks.  
+                \item Hardware: Es probable que el entrenamiento sea la parte más pesada del poceso, por lo que contar con un buen equipo será escencial para optimizar el tiempo de cómputo en el entrenameinto. Es deseable contar con mínimo de 16 GB de RAM, CPU multihilo; especialmente para técnicas de Aprendizaje reforzado (Reinforcement learning) en técnicas como Actor Crítico. También es deseable contar con GPU, específicamente NVIDIA por compatbilidad con la mayoría de frameworks.  
             \end{itemize}
 
             \item Requerimientos Funcionales.
@@ -211,13 +211,13 @@ En esta sección se describen los parámetros extraidos de los recursos. Actualm
             \item Gestión de Riesgos.
             \item Supuestos.
             \item Dependencias.
-            \item Restricciones.
-            \item Riesgos.
+            \item Restricciones: La capacidad predictiva está limitado a la frecuencia de muestreo de los datos entregados. En ese sentido, puede generar un cieto celay entre la predicción y los valores sensados por los dispositivos.
+            \item Riesgos: El modelo puede generar falsos positivos por diversos motivos, por ejemplo, cortes de energía eléctrica, donde el sistema puede considerarlo como un peiodo de interrupción técnico.
         \end{itemize}
     \subsection*{Perfil Comercial/ Industrial}
     \begin{itemize}
-            \item Marco General.
-            \item Diagnóstico.
+            \item Marco General: Las redes de acceso FTTH han crecido exponencialmente, pero la gestión del mantenimiento operativo sigue rezagada. Principalmente dependen de métodos de diagnósticos tras la apariciónde fallos en la red en lugar de estrategias preventivas basadas en datos.
+            \item Diagnóstico: Actualmente, las fallas por degradación óptica en la última milla son detectados de forma reactiva (cuando el usuario rreporta una falla o pérdida de servicio), lo que incrementa la insatisfacción del cliente y congestiona el soporte técnico.
             \item \textbf{Metodología:} 
             \begin{enumerate}
                 \item Ingesta y Limpieza de los datos: Se filtran los datos que no contienen contenido o campos vacíos selectivos.
@@ -228,13 +228,13 @@ En esta sección se describen los parámetros extraidos de los recursos. Actualm
             \end{enumerate}
 
 
-            \item Perfil.
+            \item Perfil: 
             \item Estudio de Mercado. 
-            \item Estudio Técnico.
-            \item Estudio Organizacional y administrativo.	
+            \item Estudio Técnico: El proyecto es altamente viable ya que no requiere instalación de hardware adicional ni sensores físicos; solamente se aprovecha d elos datos sensados (BIP, Rx Power, Degradation Score) ya generados por el hardware GPON existente. 
+            \item Estudio Organizacional y administrativo: El modelo deberá lograr optimizar la asignación de recursos humanos, permitiendo gestionar personal de técnicos en terreno a reparar empalmes, limpiar conectores o evaluar posibles incidentes en la zona antes de que se generen reclamos por clientes. 	
             \item Matriz de	Requisitos Funcionales y Componentes. 
             \item Estudio Legal y Ambiental.
-            \item Estudio Económico. 
+            \item Estudio Económico: El valor del proyecto radica en la reducción directa en los gastos operacionales. Disminuir los despachos técnicos de emergencia y reducir el churn rate (fuga de clientes por mal servicio) genera un retorno d einversión inmediato para el personal encargado del monitoreo del modelo.
             \item Estudio Financiero. 
         \end{itemize}
     \subsection*{Perfil de Arquitectura}
