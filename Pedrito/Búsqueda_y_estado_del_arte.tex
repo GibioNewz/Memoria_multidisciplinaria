@@ -133,10 +133,26 @@ Scopus & \instruccion{Ingresa tu ecuación} & \instruccion{Filtros} & \instrucci
 En esta sección se describen los parámetros extraidos de los recursos. Actualmente la información se distribuyen en tres documentos:
 
 \begin{itemize}
-    \item \textbf{ONT}: % Ingresa descipciön
+    \item \textbf{ONT}: Monitorea los niveles de potencia óptica que recibe cada ONT según su identificación por número serial.
     \begin{enumerate}
-        \item 
+        \item \textbf{Acct:} Numero de cuenta del cliente. Existen casos en los que no se ha logrado registrar, posiblemente por errores de sincronización. 
+        \item \textbf{Name:} Nombre del cliente. Existen casos en los que no se ha logrado registrar, posiblemente por errores de sincronización. 
+        \item \textbf{ONT:} Coordenada lógica del equipo en la central; Frame, slot, port y ONT id.
+        \item \textbf{Site:} Nombre del equipo OLT. El prefijo "PAN" indica panamá. 
+        \item \textbf{serial:} Número serial de la ONT. Perfectamente podría ser la MAC del dispositivo, pero hay que revisar. Las HWTC son Huawei y SMBS Sagemcom.
+        \item \textbf{Rng Len:} Distancia física desde la central a la casa del cliente, midiendo el retardo de luz.
+        \item \textbf{Model:} Tipo de router instalado y la versión del firmware.
+        \item \textbf{Firmware:} la versión del firmware instalado en la ONT.
+        \item \textbf{Uptime:} Tiempo en días que lleva sin reiniciarse.
+        \item \textbf{OLT Tx Power:} Potencia con el que el láser transmite la luz en la OLT.
+        \item \textbf{ONT Tx Power:}  Potencia con el que el láser transmite la luz en la ONT.
+        \item \textbf{ONT Rx Power:}  Potencia de recepción en la ONT del cliente.
+        \item \textbf{BIP (Bit interrleaved Parity) UP y Down (7 y 1 días):} Contador de error en la trama GPON debido a los bits deformados 1 y 0. Probablemente por niveles de luz deficientes o reflexiones por conectores sucios.
+        \item \textbf{Degradation score:} KPI calculado. (Marcan 100, lo que quizás indica 100\% degradado según los niveles de luz). %Revisar este parámetro
+        \item \textbf{Alarm:} Evento final debido a una falla o suceso registrado. Ej: "The loss of GEM channel delineation (LCDGi) occurs".
+        \item \textbf{Alarm date:} Fecha exacta de la falla en el formato $dd-MM-yyyy hh:mm:ss$ donde $dd$ es el día, $MM$ es el mes, $yyyy$ el año, $hh$ la hora, $mm$ los minutos y $ss$ los segundos.
     \end{enumerate}
+
     \item \textbf{PON}: % Ingresa descripción
    \begin{enumerate}
         \item 
