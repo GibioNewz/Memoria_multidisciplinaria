@@ -1,6 +1,4 @@
 \documentclass[12pt,a4paper]{article}
-
-% Paquetes esenciales para el formato y tablas
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{geometry}
@@ -10,6 +8,8 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[table]{xcolor}
 \usepackage{float}
 
@@ -19,28 +19,156 @@
     urlcolor=cyan,
 }
 
-% Comandos personalizados para notas o ejemplos que debes borrar
+
 \newcommand{\instruccion}[1]{\textcolor{red}{\textit{[#1]}}}
 \newcommand{\ejemplo}[1]{\textcolor{gray}{\textit{Ejemplo: #1}}}
 
-\title{\textbf{Informe de Vigilancia Tecnológica para Trabajo de Titulación}}
-\author{Gabriel Zapata Salazar y Yu Ze Zhou}
-\date{\today}
+\title{}
+\date{}
+
 
 \begin{document}
+
+\begin{titlepage}
+    \centering
+    
+
+    \includegraphics[width=0.4\textwidth]{Esquemas e imágenes/Logo_UTFSM.png}\par\vspace{2.5cm}
+    
+
+    {\scshape\LARGE \textbf{Reducción de la Cantidad de degradaciones de la red FTTH en Panamá} \par}
+    \vspace{1cm}
+    
+
+    {\large Hito 1: Desafío Técnico 01 \par}
+    \vspace{3.5cm}
+    
+
+    \begin{center}
+        \large
+        \textbf{Integrantes:}\\
+        Gabriel Zapata Salazar\\
+        Yu Ze Zhou\par
+        \vspace{1cm}
+        \textbf{Profesor Guía:}\\
+        Nicolás Gálvez\\
+        Astrid Lozada\par
+        \vspace{0.5cm}
+        \textbf{Tutor de Memoria:}\\
+        Pedro Muñoz\par
+    \end{center}
+    
+    \vfill
+    
+    {\large Universidad Técnica Federico Santa María \par}
+    {\large Departamento de Electrónica \par}
+    {\large 2025 \par}
+    
+\end{titlepage}
+
 \sloppy
-\maketitle
+
+
+\newpage
+\section{índice}
+
+\newpage
+
+    \section{Introducción:}
+    \noindent
+    Desde hace tiempo, la gestión de infraestructura en el sector de las telecomunicaciones enfrenta el reto de garantizar la continuidad del servicio frente a fallas imprevistas. En las redes de acceso
+    FTTH (Fibra desde el provedor de servicios hasta el hogar), el mantenimiento actual opera bajo un paradigma predominante reactivo, donde las degradaciones de señal, microcortes o anomalias físicas solo se detectan una vez
+    que el usuario final experimenta una pérdida de calidad o genera un reclamo formal. Como consecuencia, la tasa de incidencias se mide utilizando al cliente como el principal sensor de fallas, lo que incrementa los tiempos de indisponibilidad del servicio,
+    satura los canales de soporte y eleva los costos operativos de las reparaciiones técnicas.\\\\
+    
+    \noindent
+    Para cubrir estas carencias, este proyecto propone el desarrollo de un sistema analítico basado en un modelo predictivo de Machine learning que transforma los datos históricos de la red en inteligencia operativa. A través del pocesamiento de datos provenientes
+    de los distintos dispositivos de la red presentes en Liberty Latinamerica, buscamos demostrar la viabilidad de un pipeline de datos capaz de anticipar y clasificar los síntomas de degradación física antes de que impacten al cliente. Con este
+    enfoque conceptual y algrítmico, el proyecto sienta las bases técnicas para transitar desde la reparación reactiva hacia una estrategia de mantenimiento preventivo y eficiente.
+
+    \subsection{Definición del problema}
+    \noindent
+    El mantenimiento de las redes de Fibra óptica hasta el hogar (FTTH) en el escenario actual se ejecuta bajo una estrategia predominante reactiva. Ante la ocurencia de eventos disruptivos o fallas físicas en la infraestructura,
+    los sistemas de gestón tradicionales no disponen de mecanismos automatizados para advertir de forma temprana estas anomalías antes de que el servicio se interrumpe por completo.\\\\
+
+
+    \noindent
+    A raíz de esta limitación tecnológica, el estado de la red se evalúa de manera indirecta utilizando el volumen y la correlación geográfica de los reclamos ingresados por los clientes en tiempo real. Este enfoque
+    convierte la insatisfacción del usuario en el principal sensor para reconocer una caída del servicio en una zona determinada. Una vez que se alcanza un umbral crítico de incidencias directamente ligadas a un nodo
+    o segmento de red en particular, recién se procede con el despacho y despliegue del personal técnico para brindar las reparaciones necesarias.\\\\
+    
+    \noindent
+    En consecuencia, el problema central radica en la inexistencia de una estrategia analítica robusta, eficiente y proactiva que sea capaz de predecir y prevenir futuras fallas en la red FTTH. El uso ineficiente de los
+    datos generados por los equipos activos imposibilita el diagnóstico preventivo, lo que no solo deteriora los indicadores de calidad de servicio (QoS) y de experiencia del usuaio (QoE), sino que también eleva significativamente
+    los costos operativos asociados a las salidas de emergencia en labores de terreno.
+    
+
+    \subsection{Esquema de red ''Fiber to the Home''}
+    \noindent
+    Para comprender el origen de los datos sensados y las variables que alimentan el modelo predictivo, es fundamental establecer el funcionamiento de la red de acceso FTTH. Esta infraestructura se basa
+    en una arquitectura de red Óptica pasiva (PON), la cual establece el enlace de comunicaciones entre la central de distribución y las instalaciones del usuario final sin requerir equipos electrónicos activos en el trayecto medio.\\\\
+
+
+    \noindent
+    El esquema físico de esta red se compone de tres elementos principales:
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{Esquemas e imágenes/Esquema FTTH IMG (1).png}
+        \label{fig:FTTH}
+    \end{figure}
+
+    \begin{itemize}
+        \item OLT (Optical Line Terminal): Es el equipo activo principal ubicado en la central telefónica del proveedor de servicio. Actúa como el concentrador principal que inyecta la señal
+         óptica hacia la red de distribución. La OLT es una fuente crítica en la medición de datos, ya que registra el estado de los puertos PON, las caídas masivas y las alarmas de sistemas que son capturados por el
+        sistema de monitoreo de red (NOC).
+        \item ODN (Optical Distribution Network): Corresponde a la red de planta externa compuesta por el cableado de fibra óptica y divisores ópticos pasivos (splitters). Es en este segmento físico continuo
+        donde ocurre la mayor parte de las anomalías que el proyecto busca predecir, tales como atenuaciones por curvaturas, microcortes, empalmes defectuosos o degradaciones del material.
+        \item ONT (Optical Network Terminal): Es el dispositivo activo situado en el domicilio del cliente, encargado de convertir la señal óptica en pulsos eléctricos utilizables (Ethernet, Wi-Fi). En el contexto analítico de este proyecto, las ONT actúan como
+        los sensores de la última milla, proveyendo registros históricos de las potencias ópticas de recepción ($R_x$) y transmisión ($T_x$), fundamentales para calcular las desviaciones que anteceden a una falla.   
+    \end{itemize}
+
+
+    \subsection{Acercamiento a la solución}
+    \noindent
+    Para dar respuesta a las limitaciones del actual modelo de mantenimiento reactivo, proponemos el disño y desarrollo de una arquitectura analítica basada en Aprendizaje Automátivo. El sistema actuará como una capa
+    de inteligencia operativa que complementa a la infraestructura a la red existente, procesando los registros hiostóricos de sin necesidad de intervenir físicamente la planta externa.\\\\
+
+    \noindent
+    A nivel tecnológico, la solución contempla la construcción de un pipeline de datos estructurado en fases secuenciales. inicialmente, se implementará un proceso de extracción y limpieza de las diversas fuentes de datos crudos
+    provenientes de las ONT, las OLT, los registros del sistema de monitoreo de red (NOC), entre otros. Posteriormente, mediante técnicas de Minería de datos, se extraerán patrones de comportamiento y
+    fluctuaciones en la potencia óptica ($R_x$ y $T_x$) para alimentar diversos algoritmos. Esto permitirá generar un índice probabilístico de falla por segmento de red, entregando información procesable que garantice escalabilidad y flexibilidad
+    en la toma de decisiones corporativas.\\\\
+    
+    
+    \noindent
+    Además, el proyecto se apoya en el trabajo conjunto con los especialistas de servicios de telecomunicaciones, asegurando que las variables analizadas tengan sentido físico real en la topología de la red de fibra óptica.\\\\
+
+    \noindent
+    \textbf{Elementos rrelevantes:}
+    \begin{itemize}
+        \item \textbf{Usuario:} El usuario principal dirrecto corresponde a ingeniero de operaciones, ingenieros del NOC y equipo de mantenimiento de Liberty Latinamerica, quienes recibirán por notificación por correo reportes
+        predictivos para gestionar personal quien será encargado del mantenimiento preventivo. Como usuarios secundarios o feneficiarios indirectos se encuentran los clientes finales, quienes experimentarán una mejora sustancial en la calidad de experiencia (QoE)
+        y calidad de servicio (QoS) al reducir los tiempos de indisponibilidad y las incidencias técnicas.
+        \item \textbf{Producto:} El producto consiste en un pipeline analítico y un modelo predictivo de Machine Learning capaz de procesar los datos históricos estructurados para anticipar anomalías y degradaciones en la red de acceso FTTH. Su salida
+        principal es una alerta preventica adjunto a su probabilidad de falla asociada a equipos y segmentos específicos de la red, lo que permitirá a la gerencia tomar decisiones informadas sobre el despliegue de recursos técnicos para el mantenimiento preventivo.
+        \item \textbf{Valor agregado:} El contexto de aplicación se enmarca en la industria de las telecomunicaciones y la gestión de infraestructura de proveedores de servicio de internet (ISP). Se oienta hacia el nicho de mantenimiento predictivo
+        inteligente, en colaboración directa con actores corporativos de Liberty Latinamerica para validar la solución en un entorno operativo real, priorizando la eficiencia técnica sobre la comercialización del producto. 
+    \end{itemize}
+
+
+    \newpage
+    \section{Estado del Arte}
 
 
 
-\section*{Definición técnica del Problema}
-    \subsection*{Perfil Técnico}
-        \begin{itemize}
-            \item Requisitos del Sistema:  
+ 
+
+    \section{Requisitos del Sistema:}  
             \begin{enumerate}
                 \item \textbf{Requerimientos Funcionales:}
                     \begin{itemize}
-                        \item \textbf{RF1.} Ingesta de datos: El sistema debe ser capaz de cargar y leer múltiples archivos de datos estructurados po telemetría(Archivos excel que contienen datos de las ONT, OLT, NOC).
+                        \item \textbf{RF1.} Ingesta de datos: El sistema debe ser capaz de cargar y leer múltiples archivos de datos estructurados por telemetría(Archivos excel que contienen datos de las ONT, OLT, NOC).
                         \item \textbf{RF2.} Limpieza y Preprocesamiento: El sistema debe ejecutar ciclos periodicos para limpiar los arhivos, específicamente, manejar valores nulos, eliminar datos duplicados, coregir formatos de datos (Por ejemplo, transformar fechas a "dd-MM-yyyy"), filtrar ruido en las mediciones y datos inconsistentes.
                         \item \textbf{RF3.} Feature Engineering: El sistema debe generar nuevas variables calculadas a partir de datos ya procesados (por ejemplo, calcular calcular potencia óptica en diferentes periodos según la medición diaria).
                         \item \textbf{RF4.} Visualización de distribución: Visualizar la distribución de datos mediante gráficos y obtener valores estadísticos para la toma de decisión en la elección de los algoritmos a utilizar.
@@ -72,13 +200,13 @@
                 
             \end{enumerate}
 
-            \item \textbf{Arquitectura del Sistema:}
+    \section{Arquitectura del Sistema:}
             El sisguiente diagrama resume la aquitectura de alto nivel del modelo predictivo destinado para la posible detección de degradaciones en la red FTTH.
             \begin{enumerate}
                 \item \textbf{Esquema General del Sistema:} 
                     \begin{figure}[H]
                         \centering
-                        \includegraphics[width=0.8\textwidth]{Esquemas e imágenes/Arquitectura ML FTTH.png}
+                        \includegraphics[width=0.8\textwidth]{Esquemas e imágenes/Esquema ML.png}
                     \end{figure}
                 \item \textbf{Descripción de Componentes:}
                 
@@ -117,7 +245,7 @@
                     \end{table}
                 
             \end{enumerate}
-            \item \textbf{Gestión de Riesgos:}
+    \section{Gestión de Riesgos:}
             \begin{enumerate}
                 \item \textbf{Supuestos:}
                     \begin{itemize}
@@ -134,7 +262,7 @@
                 \item \textbf{Restricciones:} 
                     \begin{itemize}
                         \item \textbf{R1-Restricción de tiempo:} El proyecto está acotado a los plazos académicos exigidos por la universidad para la entrega de bitácoras y la defensa final de la memoria. Se considera un periodo de dos semestres para la entrega del prototipo final.
-                        \item \textbf{R2-Confidencialidad de la información:} Al tratarse de telemetía y datos operativos de Liberty Latinamerica, existe una restricción estricta sobre la privacidad de los datos, los cuales no pueden ser expuestos públicamente y deben ser anonimizados si involucran información de clientes.
+                        \item \textbf{R2-Confidencialidad de la información:} Al tratarse de telemetría y datos operativos de Liberty Latinamerica, existe una restricción estricta sobre la privacidad de los datos, los cuales no pueden ser expuestos públicamente y deben ser anonimizados si involucran información de clientes.
                         \item \textbf{R3-Alcance de la implementación:} El proyecto se limita al desarrollo analítico y simulación del modelo predictivo, quedando estrictamente fuera de alcance la implementación o despliegue del software en la red viva de la empresa.
                     \end{itemize}
                 \item \textbf{Riesgos:}
@@ -144,6 +272,5 @@
                         \item \textbf{P3-Desbalance de clases:} El historial entregado existen millones de registros de red funcionando bien y muy pocos datos asociados a las fallas, haciendo que el modelo se vuelva sesgado.
                     \end{itemize}
             \end{enumerate}
-        \end{itemize}
 
 \end{document}
