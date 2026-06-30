@@ -56,7 +56,7 @@
     \includegraphics[width=0.4\textwidth]{Esquemas e imágenes/Logo_UTFSM.png}\par\vspace{2.5cm}
     
 
-    {\scshape\LARGE \textbf{Desarrollo de un Modelo Predictivo de Machine Learning para la detección temprana de anomalías en redes FTTH de Liberty Latinamerica} \par}
+    {\scshape\LARGE \textbf{Desarrollo de un Modelo Predictivo de Machine Learning para la Detección Temprana de Anomalías en Redes FTTH de Liberty Latinamerica} \par}
     \vspace{1cm}
     
 
@@ -96,19 +96,18 @@
 
     \section{Introducción:}
     \noindent
-    Desde hace tiempo, la gestión de infraestructura en el sector de las telecomunicaciones enfrenta el reto de garantizar la continuidad del servicio frente a fallas imprevistas. En las redes de acceso
+    En la gestión de infraestructura en el sector de las telecomunicaciones enfrenta el reto de garantizar la continuidad del servicio frente a fallas imprevistas. En las redes de acceso
     FTTH (Fibra óptica desde el proveedor de servicios hasta el hogar), el mantenimiento actual opera bajo un paradigma predominante reactivo [1], [3]. Bajo este esquema, las degradaciones de señal, cortes o anomalías físicas se detectan una vez
     que el usuario final experimenta una pérdida de calidad o genera un reclamo formal[2]. Como consecuencia, la tasa de incidencias se mide utilizando al cliente como el principal sensor de fallas, lo que incrementa los tiempos de indisponibilidad del servicio,
     satura los canales de soporte y eleva los costos operativos de las reparaciones técnicas [4].\\\\
     
     \noindent
     Para cubrir estas carencias, este proyecto propone el desarrollo de un sistema analítico basado en un modelo predictivo de Machine learning que transforma los datos históricos de la red en inteligencia operativa. A través del procesamiento de datos provenientes
-    de los distintos dispositivos de la red presentes en Liberty Latinamerica, buscamos demostrar la viabilidad de un pipeline de datos capaz de anticipar y clasificar los síntomas de degradación física antes de que impacten al cliente. Con este
-    enfoque conceptual y algorítmico, el proyecto sienta las bases técnicas para transitar desde la reparación reactiva hacia una estrategia de mantenimiento preventivo y eficiente.
+    de los distintos dispositivos de la red presentes en Liberty Latinamerica, buscamos demostrar la viabilidad de un pipeline de datos capaz de anticipar y clasificar los síntomas de degradación física antes de que impacten al cliente. El proyecto sienta las bases técnicas para transitar desde la reparación reactiva hacia una estrategia de mantenimiento preventivo y eficiente.
 
     \subsection{Definición del problema}
     \noindent
-    El mantenimiento de las redes FTTH en el escenario actual se ejecuta bajo una estrategia predominante reactiva. Ante la ocurrencia de eventos disruptivos o fallas físicas en la infraestructura,
+    El mantenimiento de las redes FTTH en el escenario actual se ejecuta bajo una estrategia reactiva. Ante la ocurrencia de eventos disruptivos o fallas físicas en la infraestructura,
     los sistemas de gestión tradicionales no disponen de mecanismos automatizados para advertir de forma temprana estas anomalías antes de que el servicio se interrumpa por completo.\\\\
 
 
@@ -162,8 +161,6 @@
     en la toma de decisiones corporativas.\\\\
     
     
-    \noindent
-    Además, el proyecto se apoya en el trabajo conjunto con los especialistas de servicios de telecomunicaciones, asegurando que las variables analizadas tengan sentido físico real en la topología de la red de fibra óptica.\\\\
 
     \noindent
     \textbf{Elementos relevantes:}
@@ -223,19 +220,19 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
         \subsection{\textbf{Requerimientos Funcionales:}}
                     \begin{itemize}
                         \item \textbf{RF1.} Extracción de datos: El sistema debe ser capaz de cargar y leer múltiples archivos de datos estructurados.
-                        \item \textbf{RF2.} Limpieza y Preprocesamiento: El sistema debe ejecutar ciclos períodicos para limpiar los archivos, específicamente, manejar valores nulos, eliminar datos duplicados, corregir formatos de datos (Por ejemplo, transformar fechas a "dd-MM-yyyy"), filtrar ruido en las mediciones y datos inconsistentes.
+                        \item \textbf{RF2.} Limpieza y preprocesamiento: El sistema debe ejecutar ciclos períodicos para limpiar los archivos, específicamente, manejar valores nulos, eliminar datos duplicados, corregir formatos de datos (Por ejemplo, transformar fechas a "dd-MM-yyyy"), filtrar ruido en las mediciones y datos inconsistentes.
                         \item \textbf{RF3.} Feature Engineering: El sistema debe generar nuevas variables calculadas a partir de datos ya procesados (por ejemplo, calcular potencia óptica en diferentes periodos según la medición diaria).
                         \item \textbf{RF4.} Visualización de distribución: Visualizar la distribución de datos mediante gráficos y obtener valores estadísticos para la toma de decisión en la elección de los algoritmos a utilizar.
-                        \item \textbf{RF5.} Entrenamiento y Validación: El sistema debe permitir entrenar algoritmos de aprendizaje automático utilizando el conjunto de datos históricos previamente procesados y validados según su rendimiento mediante técnicas como \textbf{Cross-validation}.
+                        \item \textbf{RF5.} Entrenamiento y validación: El sistema debe permitir entrenar algoritmos de aprendizaje automático utilizando el conjunto de datos históricos previamente procesados y validados según su rendimiento mediante técnicas como \textbf{Cross-validation}.
                         \item \textbf{RF6.} Generación de predicciones: El sistema debe evaluar los nuevos datos ingresados y emitir una probabilidad de degradación o falla por algún equipo (ONT/OLT) en algún segmento de red específico.
                         \item \textbf{RF7.} Evaluación de métricas: El sistema deberá calcular y mostrar métricas de rendimiento del modelo (Por ejemplo, Precisión, Recall, F1-Score, Matriz de confusión, entre otros). 
-                        \item \textbf{RF8.} Generación de Tickets: El sistema debe comunicarse mediante una API REST con la plataforma Zammad para crear incidencias de mantenimiento de forma automática.
-                        \item \textbf{RF9.} Notificación al Usuario: El sistema debe enviar alertas estructuradas por correo electrónico al personal técnico detallando el segmento de red en riesgo.
+                        \item \textbf{RF8.} Generación de tickets: El sistema debe comunicarse mediante una API REST con la plataforma Zammad para crear incidencias de mantenimiento de forma automática.
+                        \item \textbf{RF9.} Notificación al usuario: El sistema debe enviar alertas estructuradas por correo electrónico al personal técnico detallando el segmento de red en riesgo.
                     \end{itemize}
         \subsection{\textbf{Requerimientos de Interfaces:}}
                     \begin{itemize}
-                        \item Interfaz de datos (Datos): El sistema requiere de una lectura de archivos locales o en un servicio de nube que soporte los formatos \textbf{.csv}, \textbf{.xlsx} y \textbf{.xls}.
-                        \item Interfaz de Salida (Resultados): El sistema deberá exportar las predicciones generadas a un formato estandarizado (por ejemplo, un archivo \textbf{.csv} con el identificador del equipo y su probabilidad de falla) para que pueda ser interpretado por la gerencia.
+                        \item Interfaz de datos: El sistema requiere de una lectura de archivos locales o en un servicio de nube que soporte los formatos \textbf{.csv}, \textbf{.xlsx} y \textbf{.xls}.
+                        \item Interfaz de Salida: El sistema deberá exportar las predicciones generadas a un formato estandarizado (por ejemplo, un archivo \textbf{.csv} con el identificador del equipo y su probabilidad de falla) para que pueda ser interpretado por la gerencia.
                         \item Interfaz de Usuario: Visualizar los resultados mediante un reporte notificado por correo electrónico.
                     \end{itemize}
         \subsection{\textbf{Requerimientos de Ambiente:}}
@@ -259,12 +256,12 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
     \section{Planificación del Proyecto}
     \subsection{Objetivo General}
     \noindent
-    Desarrollar y validar un pipeline y modelo predictivo basado en algoritmos de aprendizaje automático capaz de anticipar degradaciones físicas en la infraestructura FTTH de Liberty Latinamerica, proporcionando estimaciones probabilísticas
+    Desarrollar y validar el pipeline y modelo predictivo basado en algoritmos de aprendizaje automático capaz de anticipar degradaciones físicas en la infraestructura FTTH de Liberty Latinamerica, proporcionando estimaciones probabilísticas
     de falla para optimizar el mantenimiento preventivo y reducir los tiempos de indisponibilidad del servicio, mejorando la experiencia del usuario final y la eficiencia operativa de la compañía.
 
     \subsection{Objetivos específicos}
     \begin{enumerate}
-        \item \textbf{OE1:} Analizar el estado del arte y seleccionar los algoritmos del Aprendizaje automático más idóneos para el procesamiento de datos de redes ópticas y predicción de fallas.
+        \item \textbf{OE1:} Analizar el estado del arte y seleccionar los algoritmos del Aprendizaje automático con mejor desempeño para el procesamiento de datos de redes ópticas y predicción de fallas.
         \item \textbf{OE2:} Desarrollar el pipeline de datos y entrenar los modelos predictivos utilizando los registros históricos de todos los dispositivos y sistema de monitoreo de red.
         \item \textbf{OE3:} Medir y evaluar las métricas de precisión de los modelos entrenados utilizando datasets validados contra el comportamiento histórico de la red real, asegurando su viabilidad para aplicarse en operaciones en terreno.
         \item \textbf{OE4:} Implementar un sistema de notificaciones destinado a los usuarios objetivo que muestre un reporte de incidencia de posibles fallas y estado general de la red.
@@ -554,7 +551,7 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
                 \item Se aplicarán técnicas de remuestreo como SMOTE o ajuste de pesos en la función de pérdida para manejar el desbalance de clases.
                 \item Metodología de selección: Se entrenarán modelos candidatos de distintas naturaleza.
                 \item Debido al impacto operativo de falsos negativos (fallas no detectadas), el modelo final no se seleccionará por su exactitud, sino aquel que maximice la métrica 
-                F1-Score y el Área bajo la curva de precisión sensibilidad ($PR_AUC$) durante la validación cruzada.
+                F1-Score y la sensibilidad del área bajo la curva de precisión ($PR-AUC$) durante la validación cruzada.
             \end{itemize}
             \item \textbf{Salidas:} Archivo serializado que contiene el modelo óptimo entrenado y listo para recibir nuevos datos y emitir predicciones probabilísticas.
         \end{itemize}
@@ -649,9 +646,9 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
     \begin{itemize}
         \item \textbf{Inicializador:} El sistema comienza el proceso de evaluación de la red FTTH mediante la ejecución del modelo predictivo.
         \item \textbf{Filtro de degradación:} Es el núcleo que evalúa el modelo. Si los datos analizados determinan que "No es hallazgo crítico", el flujo se reinicia y queda a la espera de nueva información sin interrumpir al usuario.
-        \item \textbf{Procesa información:} Cuando el modelo detecta que "Existe una degradación crítica" (como una caída anómala en la potencia óptica), los datos pasan a esta etapa para estructurar el reporte de impacto.
+        \item \textbf{Procesa información:} Cuando el modelo detecta que ''Existe una degradación crítica'' (como una caída anómala en la potencia óptica), los datos pasan a esta etapa para estructurar el reporte de impacto.
         \item \textbf{Despliegue: Helpdesk:} Se activa el mecanismo de comunicación, invocando la API de Zammad.
-        \item \textbf{Vista de Usuario:} El flujo concluye con el "Envío de Notificación y reporte", donde el usuario visualiza la alerta directamente en su cliente de mensajería o correo electrónico, cerrando el ciclo de navegación de la información.  
+        \item \textbf{Vista de Usuario:} El flujo concluye con el ''Envío de Notificación y reporte'' donde el usuario visualiza la alerta directamente en su cliente de mensajería o correo electrónico, cerrando el ciclo de navegación de la información.  
     \end{itemize}
 
 
