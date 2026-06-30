@@ -156,7 +156,7 @@
     de inteligencia operativa que complementa a la infraestructura a la red existente, procesando los registros históricos sin necesidad de intervenir físicamente la planta externa.\\\\
 
     \noindent
-    A nivel tecnológico, la solución contempla la construcción de un pipeline de datos estructurado en fases secuenciales. inicialmente, se implementará un proceso de extracción y limpieza de las diversas fuentes de datos crudos
+    A nivel tecnológico, la solución contempla la construcción de un pipeline de datos estructurado en fases secuenciales. Inicialmente, se implementará un proceso de extracción y limpieza de las diversas fuentes de datos crudos
     provenientes de las ONT, las OLT, los registros del sistema de monitoreo de red (NOC), entre otros. Posteriormente, mediante técnicas de Minería de datos, se extraerán patrones de comportamiento y
     fluctuaciones en la potencia óptica ($R_x$ y $T_x$) para alimentar diversos algoritmos. Esto permitirá generar un índice probabilístico de falla por segmento de red, entregando información procesable que garantice escalabilidad y flexibilidad
     en la toma de decisiones corporativas.\\\\
@@ -169,7 +169,7 @@
     \textbf{Elementos relevantes:}
     \begin{itemize}
         \item \textbf{Usuario:} El usuario principal directo corresponde a ingenieros de operaciones y equipo de mantenimiento de Liberty Latinamerica, quienes recibirán por notificación o correo reportes
-        predictivos para gestionar personal quien encargado del mantenimiento preventivo. Como usuarios secundarios o beneficiarios indirectos se encuentran los clientes finales, quienes experimentarán una mejora sustancial en la QoE
+        predictivos para gestionar personal encargado del mantenimiento preventivo. Como usuarios secundarios o beneficiarios indirectos se encuentran los clientes finales, quienes experimentarán una mejora sustancial en la QoE
         y QoS al reducir los tiempos de indisponibilidad y las incidencias técnicas.
         \item \textbf{Producto:} El producto consiste en un pipeline y un modelo predictivo de Machine Learning capaz de procesar los datos históricos estructurados para anticipar anomalías y degradaciones en la red de acceso FTTH. Su salida
         principal es una alerta preventiva adjunto a su probabilidad de falla asociada a equipos y segmentos específicos de la red, lo que permitirá a la gerencia tomar decisiones informadas sobre el despliegue de recursos técnicos para el mantenimiento preventivo.
@@ -194,7 +194,7 @@ Para mitigar este sesgo analítico, el estado del arte propone la utilización d
 
 \subsubsection{Explicabilidad Algorítmica (XAI) en Entornos Operativos}
 En el ámbito corporativo, predecir una falla carece de utilidad práctica si el modelo opera como una ``caja negra''. Para abordar esto, la literatura reciente aplica técnicas de interpretabilidad o XAI (\textbf{Explainable AI}), como SHAP (\textbf{Shapley Additive exPlanations}) y 
-LIME (\textbf{Local Interpretable Model-agnostic Explanations}) \cite{shap_lime}. Estas metodologías se están incorporando en el análisis de redes FTTH para cuantificar el peso matemático exacto que cada variable medido (por ejemplo, variaciones de potencia Rx o tasas de cortes) tiene sobre la probabilidad final de degradación, permitiendo que en el área de operaciones comprenda y confíe en la predicción.
+LIME (\textbf{Local Interpretable Model-agnostic Explanations}) \cite{shap_lime}. Estas metodologías se están incorporando en el análisis de redes FTTH para cuantificar el peso matemático exacto que cada variable (por ejemplo, variaciones de potencia Rx o tasas de cortes) tiene sobre la probabilidad final de degradación, permitiendo que en el área de operaciones comprenda y confíe en la predicción.
 
 \subsubsection{Perspectiva Industrial: Transición Analítica de la Detección a la Prevención}
 Desde la perspectiva aplicada de proveedores tecnológicos y plataformas operativas, tales como Nokia \cite{nokia_predictive} y VC4 \cite{vc4_predictive}, el éxito del mantenimiento preventivo no radica exclusivamente en el algoritmo, sino en un proceso robusto de \textbf{Feature Engineering} fundamentado en el conocimiento topológico.
@@ -283,13 +283,13 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
             \begin{tabular}{|p{5cm}|p{3cm}|p{2cm}|p{2cm}|p{2cm}|}
             \hline
             \textbf{Actividad} & \textbf{Responsable} & \textbf{Fecha de comienzo} & \textbf{Fecha de término} & \textbf{\% de avance} \\ \hline
-            \textbf{OE1: Identificación de técnicas que permitan realizar predicciones} & Gabriel Zapata, Yu Zhou & 22-04-2026 & 20-05-2026 & 64\% \\ \hline
-            A1.1: Revisión del estado del arte & Gabriel Zapata, Yu Zhou & 22-04-2026 & 17-05-2026 & 63\% \\ \hline
+            \textbf{OE1: Identificación de técnicas que permitan realizar predicciones} & Gabriel Zapata, Yu Zhou & 22-04-2026 & 20-05-2026 & 100\% \\ \hline
+            A1.1: Revisión del estado del arte & Gabriel Zapata, Yu Zhou & 22-04-2026 & 17-05-2026 & 100\% \\ \hline
             T1.1.1: Elaboración de una estrategia de búsqueda & Gabriel Zapata & 22-04-2026 & 11-05-2026 & 100\% \\ \hline
-            T1.1.2: Búsqueda de literatura sobre mantenimiento predictivo en redes FTTH & Gabriel Zapata, Yu Zhou & 22-04-2026 & 17-05-2026 & 25\% \\ \hline
-            A1.2: Entender la naturaleza de los datos actuales de la FTTH & Gabriel Zapata, Yu Zhou & 22-04-2026 & 20-05-2026 & 65\% \\ \hline
-            T1.2.1: ONT & Gabriel Zapata & 22-04-2026 & 20-05-2026 & 60\% \\ \hline
-            T1.2.2: PON & Yu Zhou & 22-04-2026 & 20-05-2026 & 70\% \\ \hline
+            T1.1.2: Búsqueda de literatura sobre mantenimiento predictivo en redes FTTH & Gabriel Zapata, Yu Zhou & 22-04-2026 & 17-05-2026 & 100\% \\ \hline
+            A1.2: Entender la naturaleza de los datos actuales de la FTTH & Gabriel Zapata, Yu Zhou & 22-04-2026 & 20-05-2026 & 100\% \\ \hline
+            T1.2.1: ONT & Gabriel Zapata & 22-04-2026 & 20-05-2026 & 100\% \\ \hline
+            T1.2.2: PON & Yu Zhou & 22-04-2026 & 20-05-2026 & 100\% \\ \hline
             \end{tabular}
             \caption{Planificación OE1}
             \label{tab:planificacion_avance}
@@ -305,11 +305,11 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
             \begin{tabular}{|p{5cm}|p{3cm}|p{2cm}|p{2cm}|p{2cm}|}
             \hline
             \textbf{Actividad} & \textbf{Responsable} & \textbf{Fecha de comienzo} & \textbf{Fecha de término} & \textbf{\% de avance} \\ \hline
-            \textbf{OE2: Entrenar modelos predictivos} & Gabriel Zapata, Yu Zhou & 20-05-2026 & 20-07-2026 & 0\% \\ \hline
-            A2.1: Preparación del pipeline de datos & Gabriel Zapata, Yu Zhou & 20-05-2026 & 15-06-2026 & 1\% \\ \hline
-            T2.1.1: Limpieza, normalización y manejo de valores nulos & Gabriel Zapata, Yu Zhou & 20-05-2026 & 25-05-2026 & 1\% \\ \hline
-            T2.1.2: Reducción de dimensionalidad & Gabriel Zapata & 25-05-2026 & 29-05-2026 & 0\% \\ \hline
-            T2.1.3: Feature engineering & Gabriel Zapata & 29-05-2026 & 04-06-2026 & 0\% \\ \hline
+            \textbf{OE2: Entrenar modelos predictivos} & Gabriel Zapata, Yu Zhou & 20-05-2026 & 20-07-2026 & 31\% \\ \hline
+            A2.1: Preparación del pipeline de datos & Gabriel Zapata, Yu Zhou & 20-05-2026 & 15-06-2026 & 47\% \\ \hline
+            T2.1.1: Limpieza, normalización y manejo de valores nulos & Gabriel Zapata, Yu Zhou & 20-05-2026 & 25-05-2026 & 70\% \\ \hline
+            T2.1.2: Reducción de dimensionalidad & Gabriel Zapata & 25-05-2026 & 29-05-2026 & 35\% \\ \hline
+            T2.1.3: Feature engineering & Gabriel Zapata & 29-05-2026 & 04-06-2026 & 35\% \\ \hline
             A2.2: Entrenamiento de modelos candidatos & Yu Zhou & 04-06-2026 & 20-07-2026 & 0\% \\ \hline
             T2.2.1: Optimización de hiperparámetros & Yu Zhou & 04-06-2026 & 20-07-2026 & 0\% \\ \hline
             \end{tabular}
@@ -389,7 +389,7 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
 
 
 \newpage
-  \section{Arquitectura Revisada del Sistema:}
+  \section{Arquitectura del Sistema:}
 
 
     \subsection*{\textbf{Diagrama de Contexto}}
@@ -405,9 +405,9 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
     \end{figure}
 
 
-    \subsection{\textbf{Esquema General del Sistema:}} 
+    \subsection{\textbf{Diagrama de Arquitectura:}} 
     \noindent
-    La figura \ref{MODELO ML} resume la arquitectura de alto nivel del modelo predictivo destinado para la posible detección de degradaciones en la red FTTH. La descripción de cada bloque lo puede encontrar en la sección 4.2.
+    La figura \ref{MODELO ML} resume la arquitectura de alto nivel del modelo predictivo destinado para la posible detección de degradaciones en la red FTTH. La descripción de cada bloque se especifica en el cuadro 5.
 
                     \begin{figure}[H]
                         \centering
@@ -415,7 +415,7 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
                         \caption{Arquitectura del sistema}
                         \label{MODELO ML}
                     \end{figure}
-    \subsection{\textbf{Enumeración de Módulos:}}
+    \subsection{\textbf{Descripción General de Módulos:}}
                 
                     \begin{table}[H]
                         \centering
@@ -431,6 +431,8 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
                             \textbf{M.5: Integración de Ticketing Zammad} & Actúa como puente automatizado. Recibe las predicciones críticas del modelo e invoca la API de Zammad para registrar formalmente una alerta operativa de mantenimiento. & 5.5 \\ \hline
                             \textbf{M.6: Visualización y UI (Correo electrónico)} & Interfaz final que traduce el ticket generado en un reporte ejecutivo y lo notifica pasivamente al personal técnico mediante correo electrónico. & 5.6 \\ \hline
                         \end{tabularx}
+                        \caption{Descripción de cada componente}
+                        \label{Tabla MODULO}
                     \end{table}
 
 
