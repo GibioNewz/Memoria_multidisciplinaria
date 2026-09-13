@@ -597,6 +597,111 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
         \end{itemize}
     \end{itemize}
                 
+\section{Prototipo}
+\subsection{Marco General}
+Recapitulando, el proecto consiste en el desarrollo de un modelo predictivo
+de Machine Learning para la detección temprana de anomalías en la red FTTH de Liberty Latinamerica, complementando con
+un sistema de notificaciones automatizados que traduce las predicciones en alertas accionables
+para el personal técnico.  En este hito se consolidó el pipeline desde la extracción de fuentes crudas
+hasta un dataset unificado listo para el entrenamiento, se difinió y validó la variable objetivo del modelo  se realizaron las primeras
+iteraciones de feature engineering con evaluación cuantitativa de su aporte prredictivo.
+
+\subsection{Hitos Principales del Proyecto}
+
+\begin{itemize}
+    \item \textbf{Hito 1 (definición):} Levantamiento del problema, definición de alcances, rrequisitos funcionales y de ambiente, revisión del estado del arte
+    y arquitectura conceptual de la solución.
+    \item \textbf{Hito 2 (diseño detallado):} especificación de los seis módulos del sistema (M.1 Fuentes de datos, M.2 Pipeline y Limpieza, M.3 Feature Engineering, M.4 Modelo Predictivo, M.5 Integración Zammad, M.6 Visualización y UI), diagramas de contexto yy arquitectura,
+    matris de requerimientos funcionales y diseño de la interfaz de notificación.
+    \item \textbf{Hito 3 (Prototipo):} Implementación funcional de los módulos M.1, M.2 y M.3. Se consolidó 7 de las 13 fuentes de datos en un dataset unificado de 999.766 registros a nivel de ONT-día; se definió
+    la variable objetivo ($falla_optica$) con criterio técnico y se validó contra una fuente de monitoreo independiente; se ejecutaron cuantitativamente mediante entrenamientos exploratorios
+    que triplicaron la capacidad predictiva medida respecto a la línea base. Adicionalmente, se implementó la integración con la plataforma Zammad (M.5), pendiente de conexión con la salida del modelo. La selección
+    del modelo definitivo aún no forma parte del alcance de este hito.
+    
+    \item Siguiente hito (planificado): Cierre de feature engineeing y reducción de dimensionalidad; evaluación comparativa
+    y selección definitiva del modelo mediante validación cruzada; conexión extremo a extremo entre el modelo predictivo y el sistema de notificaciones; y evaluación de resultados en condiciones representativas del entorno operativo.
+\end{itemize}
+
+
+\subsection{Revisión de Requerimientos}
+
+\begin{table}[H]
+\centering
+\small 
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{1.1cm}|p{2.9cm}|p{1.9cm}|p{7.2cm}|}
+\hline
+\textbf{RF} & \textbf{Descripción} & \textbf{Estado H3} & \textbf{Evidencia / Comentarios} \\
+\hline
+RF1 & Extracción de datos & Cumplido & Carga de 13 archivos (.csv/.xlsx) desde fuentes ONT, OLT, NOC, infraestructura y soporte. \\
+\hline
+RF2 & Limpieza y preprocesamiento & Cumplido & Corrección de formatos de fecha, tipificación de identificadores, detección y tratamiento de valores centinela de error, deduplicación por clave primaria. \\
+\hline
+RF3 & Feature Engineering & Parcial & Tres iteraciones ejecutadas (márgenes ópticos respecto a estándar ITU-T, agregaciones por punto de conexión compartido, indicadores de disponibilidad de fuente). Pendiente: cierre de variables temporales y reducción de dimensionalidad. \\
+\hline
+RF4 & Visualización de distribución & Cumplido & Análisis exploratorio de distribuciones por variable, cobertura por fuente y tasa de eventos por segmento; utilizado como insumo de las decisiones de diseño del dataset. \\
+\hline
+RF5 & Entrenamiento y validación & En progreso & Se ejecutaron entrenamientos exploratorios con partición por dispositivo, empleados como instrumento de medición del aporte de cada variable construida. La evaluación comparativa formal mediante validación cruzada y la selección del modelo quedan planificadas para el siguiente hito. \\
+\hline
+RF6 & Generación de predicciones & En progreso & Los modelos exploratorios emiten probabilidad de falla por registro ONT-día; la formalización del punto de operación (umbral) depende de la selección definitiva del modelo. \\
+\hline
+RF7 & Evaluación de métricas & Parcial & Se reportan AUC-PR, precisión y cobertura sobre curva completa en los ensayos exploratorios. Matriz de confusión y F1 en el punto de operación definitivo: pendientes de la selección final del modelo. \\
+\hline
+RF8 & Generación de tickets & Parcial & Integración con la API REST de Zammad implementada y operativa; pendiente la conexión con la salida del módulo predictivo. \\
+\hline
+RF9 & Notificación al usuario & Parcial & Flujo de notificación por correo operativo a través de Zammad; pendiente el poblado del reporte con datos reales del modelo. \\
+\hline
+\end{tabular}
+\caption{Estado de cobertura de los Requisitos Funcionales al Hito 3}
+\label{tab:cobertura-rf}
+\end{table}
+ 
+\subsubsection*{Requisitos No Funcionales y de Ambiente}
+ 
+\begin{itemize}
+    \item \textbf{Formatos de entrada (.csv, .xlsx, .xls):} cumplido. El pipeline procesa ambos formatos sin intervención manual.
+ 
+    \item \textbf{Manejo de volumen sin cuello de botella:} cumplido. El dataset unificado (999.766 registros $\times$ 99 variables) se procesa íntegramente en memoria en el entorno local, sin requerir infraestructura de Big Data, lo que valida el supuesto S3 declarado en el Hito 2.
+ 
+    \item \textbf{Confidencialidad de la información (R2):} cumplido. El trabajo se realiza sobre identificadores técnicos de equipos y cuentas, sin exposición de datos personales de clientes.
+ 
+    \item \textbf{Preservación de la distribución real en la limpieza:} cumplido con criterio explícito. Las técnicas de tratamiento de valores faltantes se aplicaron distinguiendo entre ausencia por error de instrumento y ausencia estructural, documentando ambos casos por separado (véase la sección de Verificación).
+\end{itemize}
+
+
+\subsection{Revisión del Diseño}
+ 
+La arquitectura de seis módulos definida en el Hito 2 se mantuvo sin modificaciones estructurales. Los ajustes introducidos durante la implementación fueron los siguientes:
+ 
+\textbf{Acotamiento de los algoritmos candidatos (M.4).} El Hito 2 planteaba un abanico amplio de algoritmos, incluyendo aprendizaje reforzado y redes neuronales profundas. Tras el análisis de la naturaleza del problema, la lista de candidatos se acotó a familias de modelos apropiadas para clasificación supervisada sobre datos tabulares: regresión logística como línea base interpretable, Random Forest y modelos de \textit{gradient boosting} (XGBoost/LightGBM). El aprendizaje reforzado se descartó por corresponder a problemas de decisión secuencial, ajenos a la naturaleza de este caso; las redes profundas se descartaron por su rendimiento comparativamente inferior en datos tabulares estructurados frente a los ensambles de árboles. Este acotamiento es consistente con la referencia \cite{sun2023stacking} del estado del arte, que respalda el uso de modelos de ensamble para datos desbalanceados en redes ópticas. Cabe precisar que se trata de una delimitación del espacio de búsqueda, no de una selección: \textbf{la elección del modelo definitivo no se ha realizado en este hito} y queda supeditada a la evaluación comparativa mediante validación cruzada planificada para la siguiente entrega, conforme al criterio de selección establecido en la sección 5.4 del Hito 2 (maximización de F1-Score y PR-AUC).
+ 
+\textbf{Definición operacional de la variable objetivo (M.4).} El Hito 2 no especificaba cómo se etiquetaría un registro como ``falla''. Durante la implementación se determinó que la definición amplia basada en alarmas de severidad crítica resultaba inadecuada para el alcance declarado del proyecto, dado que la mayoría de esos eventos correspondía a cortes de energía en el domicilio del cliente, es decir, causas externas a la red. La definición se refinó a eventos de naturaleza óptica inequívoca. Esta precisión no altera la arquitectura, pero sí constituye una definición de diseño relevante incorporada en este hito.
+ 
+\textbf{Incorporación de un estándar técnico externo como referencia (M.3).} El Hito 2 planteaba la ingeniería de características a partir de tendencias y agregaciones sobre los datos históricos. Durante la implementación se incorporó adicionalmente el estándar ITU-T G.984.2 como referencia externa para la construcción de variables, calculando la distancia de cada medición óptica respecto a los límites físicos especificados para la clase de presupuesto óptico de la red. Esta decisión evita definir umbrales de forma circular a partir de los mismos datos que luego se evalúan, y se alineó con la perspectiva industrial descrita en la sección 1.4.4 del Hito 2, que enfatiza la correlación con presupuestos de potencia (\textit{link loss budgets}).
+ 
+\textbf{Alcance del módulo de reducción de dimensionalidad (M.3).} La aplicación de técnicas de reducción se mantiene planificada, pero su ejecución quedó supeditada a la selección definitiva del algoritmo, dado que su pertinencia depende del modelo: los ensambles de árboles toleran variables correlacionadas sin degradación, mientras que los modelos lineales sí requieren tratamiento de colinealidad.
+ 
+\subsection{Entorno de Soporte y Desarrollo}
+ 
+\begin{itemize}
+    \item \textbf{Lenguaje y entorno de ejecución:} Python 3.x sobre entorno virtual local, con Jupyter Notebook como interfaz de desarrollo y documentación del pipeline.
+ 
+    \item \textbf{Librerías de procesamiento de datos:} \texttt{pandas} (manipulación y unificación de tablas) y \texttt{numpy} (operaciones numéricas y tratamiento de valores faltantes).
+ 
+    \item \textbf{Librerías de modelado y evaluación:} \texttt{scikit-learn} (modelos de línea base, particionamiento por grupos, métricas de evaluación y codificación de variables categóricas), \texttt{imbalanced-learn} (técnicas de remuestreo para clases desbalanceadas, específicamente SMOTENC para conjuntos con variables nominales) y \texttt{LightGBM} (modelo de \textit{gradient boosting}).
+ 
+    \item \textbf{Librerías de visualización y análisis estadístico:} \texttt{matplotlib} para el análisis exploratorio de distribuciones; \texttt{scipy} para pruebas de significancia estadística aplicadas a la evaluación de variables candidatas.
+ 
+    \item \textbf{Fuentes de datos:} 13 archivos estáticos en formato \texttt{.csv} y \texttt{.xlsx}, provenientes de los sistemas de telemetría de ONT y OLT, el sistema de gestión de alarmas, el sistema geoespacial de infraestructura y el registro de contactos de soporte al cliente. El dataset unificado resultante se persiste localmente para evitar la reejecución completa del pipeline en cada sesión de trabajo.
+ 
+    \item \textbf{Referencia normativa externa:} estándar ITU-T G.984.2 (tablas de niveles de potencia óptica para clases B+ y C+), utilizado en la construcción de variables del módulo M.3.
+ 
+    \item \textbf{Plataforma de notificación:} Zammad desplegado en contenedor Docker, con integración vía API REST ya operativa.
+ 
+    \item \textbf{Hardware de desarrollo:} equipo local con procesador multinúcleo, suficiente para el procesamiento del volumen actual de datos y el entrenamiento de los modelos de ensamble evaluados hasta la fecha. No se requirió recurrir a entornos de cómputo en la nube, confirmando el supuesto S3 del Hito 2.
+\end{itemize}
+
+
 
 \section{Gestión de Riesgos:}
 
