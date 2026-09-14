@@ -60,7 +60,7 @@
     \vspace{1cm}
     
 
-    {\large Hito 2: Desafío Técnico 14 \par}
+    {\large Hito 3: Desafío Técnico 14 \par}
     \vspace{3.5cm}
     
 
@@ -456,6 +456,7 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
                     \end{table}
     
     \section{Diseño de Módulos del Sistema:}
+    \label{sec:modulos}
     \subsection{Fuentes de datos:}
 
     \begin{itemize}
@@ -532,6 +533,7 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
 
 
     \subsection{Modelo predictivo}
+    \label{subsec:modelo}
     \begin{itemize}
         \item \textbf{Propósito:} Este módulo es el encargado de aplicar y entrenar el modelo mediante un conjunto de algoritmos de Machine learning (como Random Forest, XGBoost, regresiones, Kernel machines, aprendizaje reforzado, entre otros) para evaluar y seleccionar el mejor de ellos para predecir
         predecir la probabilidad de degradación en los enlaces FTTH.
@@ -558,6 +560,7 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
     \end{itemize}
 
     \subsection{Integración con Plataforma de Ticketing (Zammad)}
+    \label{subsec:zammad}
     \begin{itemize}
         \item \textbf{Propósito:} Este módulo actúa como el puente de comunicación automatizado entre el Modelo Predictivo y la capa de operaciones. Su función es recibir los hallazgos de degradación del modelo e invocar la API de Zammad para registrar formalmente una alerta de mantenimiento preventivo.
         \item \textbf{Alcance:} Comprende la recepción de los datos del modelo, la estructuración del payload y la comunicación de red con el sistema de Helpdesk.
@@ -597,29 +600,29 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
         \end{itemize}
     \end{itemize}
                 
-\section{Prototipo}
-\subsection{Marco General}
-Recapitulando, el proecto consiste en el desarrollo de un modelo predictivo
+
+\section{Marco General}
+\noindent
+Recapitulando, el proyecto consiste en el desarrollo de un modelo predictivo
 de Machine Learning para la detección temprana de anomalías en la red FTTH de Liberty Latinamerica, complementando con
 un sistema de notificaciones automatizados que traduce las predicciones en alertas accionables
 para el personal técnico.  En este hito se consolidó el pipeline desde la extracción de fuentes crudas
-hasta un dataset unificado listo para el entrenamiento, se difinió y validó la variable objetivo del modelo  se realizaron las primeras
-iteraciones de feature engineering con evaluación cuantitativa de su aporte prredictivo.
+hasta un dataset unificado listo para el entrenamiento, se definió y validó la variable objetivo del modelo.
 
 \subsection{Hitos Principales del Proyecto}
 
 \begin{itemize}
-    \item \textbf{Hito 1 (definición):} Levantamiento del problema, definición de alcances, rrequisitos funcionales y de ambiente, revisión del estado del arte
+    \item \textbf{Hito 1 (definición):} Levantamiento del problema, definición de alcances, requisitos funcionales y de ambiente, revisión del estado del arte
     y arquitectura conceptual de la solución.
-    \item \textbf{Hito 2 (diseño detallado):} especificación de los seis módulos del sistema (M.1 Fuentes de datos, M.2 Pipeline y Limpieza, M.3 Feature Engineering, M.4 Modelo Predictivo, M.5 Integración Zammad, M.6 Visualización y UI), diagramas de contexto yy arquitectura,
-    matris de requerimientos funcionales y diseño de la interfaz de notificación.
-    \item \textbf{Hito 3 (Prototipo):} Implementación funcional de los módulos M.1, M.2 y M.3. Se consolidó 7 de las 13 fuentes de datos en un dataset unificado de 999.766 registros a nivel de ONT-día; se definió
-    la variable objetivo ($falla_optica$) con criterio técnico y se validó contra una fuente de monitoreo independiente; se ejecutaron cuantitativamente mediante entrenamientos exploratorios
+    \item \textbf{Hito 2 (diseño detallado):} especificación de los seis módulos del sistema (M.1 Fuentes de datos, M.2 Pipeline y Limpieza, M.3 Feature Engineering, M.4 Modelo Predictivo, M.5 Integración Zammad, M.6 Visualización y UI), diagramas de contexto y arquitectura,
+    matriz de requerimientos funcionales y diseño de la interfaz de notificación.
+    \item \textbf{Hito 3 (Prototipo):} Implementación funcional de los módulos M.1, M.2 y M.3. Se consolidó 8 de las 13 fuentes de datos en un dataset unificado de 999.766 registros a nivel de ONT por día. Se definió
+    la variable objetivo (falla\_optica) con criterio técnico y se validó contra una fuente de monitoreo independiente; se ejecutaron tres iteraciones, evaluados cuantitativamente mediante entrenamientos exploratorios
     que triplicaron la capacidad predictiva medida respecto a la línea base. Adicionalmente, se implementó la integración con la plataforma Zammad (M.5), pendiente de conexión con la salida del modelo. La selección
     del modelo definitivo aún no forma parte del alcance de este hito.
     
-    \item Siguiente hito (planificado): Cierre de feature engineeing y reducción de dimensionalidad; evaluación comparativa
-    y selección definitiva del modelo mediante validación cruzada; conexión extremo a extremo entre el modelo predictivo y el sistema de notificaciones; y evaluación de resultados en condiciones representativas del entorno operativo.
+    \item Siguiente hito (planificado): Cierre de feature engineeing y reducción de dimensionalidad. Evaluación comparativa
+    y selección definitiva del modelo mediante validación cruzada; conexión extremo a extremo entre el modelo predictivo y el sistema de notificaciones. Finalmente queda la evaluación de resultados en condiciones representativas del entorno operativo.
 \end{itemize}
 
 
@@ -637,7 +640,7 @@ RF1 & Extracción de datos & Cumplido & Carga de 13 archivos (.csv/.xlsx) desde 
 \hline
 RF2 & Limpieza y preprocesamiento & Cumplido & Corrección de formatos de fecha, tipificación de identificadores, detección y tratamiento de valores centinela de error, deduplicación por clave primaria. \\
 \hline
-RF3 & Feature Engineering & Parcial & Tres iteraciones ejecutadas (márgenes ópticos respecto a estándar ITU-T, agregaciones por punto de conexión compartido, indicadores de disponibilidad de fuente). Pendiente: cierre de variables temporales y reducción de dimensionalidad. \\
+RF3 & Feature Engineering & Parcialmente cumplido & Tres iteraciones ejecutadas (márgenes ópticos respecto a estándar ITU-T, agregaciones por punto de conexión compartido, indicadores de disponibilidad de fuente). Pendiente: cierre de variables temporales y reducción de dimensionalidad. \\
 \hline
 RF4 & Visualización de distribución & Cumplido & Análisis exploratorio de distribuciones por variable, cobertura por fuente y tasa de eventos por segmento; utilizado como insumo de las decisiones de diseño del dataset. \\
 \hline
@@ -645,11 +648,11 @@ RF5 & Entrenamiento y validación & En progreso & Se ejecutaron entrenamientos e
 \hline
 RF6 & Generación de predicciones & En progreso & Los modelos exploratorios emiten probabilidad de falla por registro ONT-día; la formalización del punto de operación (umbral) depende de la selección definitiva del modelo. \\
 \hline
-RF7 & Evaluación de métricas & Parcial & Se reportan AUC-PR, precisión y cobertura sobre curva completa en los ensayos exploratorios. Matriz de confusión y F1 en el punto de operación definitivo: pendientes de la selección final del modelo. \\
+RF7 & Evaluación de métricas & En progreso & Se debe obtener matriz de confusión y puntaje F1: pendientes de la selección final del modelo. \\
 \hline
-RF8 & Generación de tickets & Parcial & Integración con la API REST de Zammad implementada y operativa; pendiente la conexión con la salida del módulo predictivo. \\
+RF8 & Generación de tickets & Parcialmente cumplido & Integración con la API REST de Zammad implementada y operativa; pendiente la conexión con la salida del módulo predictivo. \\
 \hline
-RF9 & Notificación al usuario & Parcial & Flujo de notificación por correo operativo a través de Zammad; pendiente el poblado del reporte con datos reales del modelo. \\
+RF9 & Notificación al usuario & Parcialmente cumplido & Flujo de notificación por correo operativo a través de Zammad; pendiente la alimentación del reporte con datos reales del modelo. \\
 \hline
 \end{tabular}
 \caption{Estado de cobertura de los Requisitos Funcionales al Hito 3}
@@ -661,26 +664,29 @@ RF9 & Notificación al usuario & Parcial & Flujo de notificación por correo ope
 \begin{itemize}
     \item \textbf{Formatos de entrada (.csv, .xlsx, .xls):} cumplido. El pipeline procesa ambos formatos sin intervención manual.
  
-    \item \textbf{Manejo de volumen sin cuello de botella:} cumplido. El dataset unificado (999.766 registros $\times$ 99 variables) se procesa íntegramente en memoria en el entorno local, sin requerir infraestructura de Big Data, lo que valida el supuesto S3 declarado en el Hito 2.
+    \item \textbf{Manejo de volumen:} cumplido. El dataset unificado (999.766 registros $\times$ 99 variables) se procesa íntegramente en memoria en el entorno local, sin requerir infraestructura de Big Data, lo que valida el supuesto S3 declarado en el Hito 2.
  
     \item \textbf{Confidencialidad de la información (R2):} cumplido. El trabajo se realiza sobre identificadores técnicos de equipos y cuentas, sin exposición de datos personales de clientes.
  
-    \item \textbf{Preservación de la distribución real en la limpieza:} cumplido con criterio explícito. Las técnicas de tratamiento de valores faltantes se aplicaron distinguiendo entre ausencia por error de instrumento y ausencia estructural, documentando ambos casos por separado (véase la sección de Verificación).
+    \item \textbf{Preservación de la distribución real en la limpieza:} cumplido. Las técnicas de tratamiento de valores faltantes se aplicaron distinguiendo entre ausencia por error de instrumento y ausencia estructural, documentando ambos casos por separado (véase la sección de Verificación).
 \end{itemize}
 
 
 \subsection{Revisión del Diseño}
- 
+ \noindent
 La arquitectura de seis módulos definida en el Hito 2 se mantuvo sin modificaciones estructurales. Los ajustes introducidos durante la implementación fueron los siguientes:
+\begin{itemize}
  
-\textbf{Acotamiento de los algoritmos candidatos (M.4).} El Hito 2 planteaba un abanico amplio de algoritmos, incluyendo aprendizaje reforzado y redes neuronales profundas. Tras el análisis de la naturaleza del problema, la lista de candidatos se acotó a familias de modelos apropiadas para clasificación supervisada sobre datos tabulares: regresión logística como línea base interpretable, Random Forest y modelos de \textit{gradient boosting} (XGBoost/LightGBM). El aprendizaje reforzado se descartó por corresponder a problemas de decisión secuencial, ajenos a la naturaleza de este caso; las redes profundas se descartaron por su rendimiento comparativamente inferior en datos tabulares estructurados frente a los ensambles de árboles. Este acotamiento es consistente con la referencia \cite{sun2023stacking} del estado del arte, que respalda el uso de modelos de ensamble para datos desbalanceados en redes ópticas. Cabe precisar que se trata de una delimitación del espacio de búsqueda, no de una selección: \textbf{la elección del modelo definitivo no se ha realizado en este hito} y queda supeditada a la evaluación comparativa mediante validación cruzada planificada para la siguiente entrega, conforme al criterio de selección establecido en la sección 5.4 del Hito 2 (maximización de F1-Score y PR-AUC).
+\item \textbf{Acotamiento de los algoritmos candidatos (M.4):} El Hito 2 planteaba un abanico amplio de algoritmos, incluyendo aprendizaje reforzado y redes neuronales profundas. Tras el análisis de la naturaleza del problema, la lista de candidatos se acotó a familias de modelos apropiadas para clasificación supervisada sobre datos tabulares: regresión logística como línea base, Random Forest y modelos de \textit{gradient boosting} (XGBoost/LightGBM). El aprendizaje reforzado se descartó por corresponder a problemas de decisión secuencial, ajenos a la naturaleza de este caso; las redes profundas se descartaron por su rendimiento comparativamente inferior en datos estructurados frente a los ensambles de árboles. Este acotamiento es consistente con la referencia \cite{stacking_ensemble} del estado del arte, que respalda el uso de modelos de ensamble para datos desbalanceados en redes ópticas. Cabe destacar que se trata de una delimitación del espacio de búsqueda, no de una selección: \textbf{la elección del modelo definitivo no se ha realizado en este hito} y queda supeditada a la evaluación comparativa mediante validación cruzada planificada para la siguiente entrega, conforme al criterio de selección establecido en la sección 5.4 del Hito 2 (maximización de F1-Score y PR-AUC).
  
-\textbf{Definición operacional de la variable objetivo (M.4).} El Hito 2 no especificaba cómo se etiquetaría un registro como ``falla''. Durante la implementación se determinó que la definición amplia basada en alarmas de severidad crítica resultaba inadecuada para el alcance declarado del proyecto, dado que la mayoría de esos eventos correspondía a cortes de energía en el domicilio del cliente, es decir, causas externas a la red. La definición se refinó a eventos de naturaleza óptica inequívoca. Esta precisión no altera la arquitectura, pero sí constituye una definición de diseño relevante incorporada en este hito.
+\item \textbf{Definición operacional de la variable objetivo (M.4):} El Hito 2 no especificaba cómo se etiquetaría un registro como ``falla''. Durante la implementación se determinó que la definición amplia basada en alarmas de severidad crítica resultaba inadecuada para el alcance declarado del proyecto, dado que la mayoría de esos eventos correspondía a cortes de energía en el domicilio del cliente, es decir, causas externas a la red. La definición se refinó a eventos de naturaleza óptica. Esta precisión no altera la arquitectura, pero sí constituye una definición de diseño relevante incorporada en este hito.
  
-\textbf{Incorporación de un estándar técnico externo como referencia (M.3).} El Hito 2 planteaba la ingeniería de características a partir de tendencias y agregaciones sobre los datos históricos. Durante la implementación se incorporó adicionalmente el estándar ITU-T G.984.2 como referencia externa para la construcción de variables, calculando la distancia de cada medición óptica respecto a los límites físicos especificados para la clase de presupuesto óptico de la red. Esta decisión evita definir umbrales de forma circular a partir de los mismos datos que luego se evalúan, y se alineó con la perspectiva industrial descrita en la sección 1.4.4 del Hito 2, que enfatiza la correlación con presupuestos de potencia (\textit{link loss budgets}).
+\item \textbf{Incorporación de un estándar técnico externo como referencia (M.3):} El Hito 2 planteaba la ingeniería de características a partir de tendencias y agregaciones sobre los datos históricos. Durante la implementación se incorporó adicionalmente el estándar ITU-T G.984.2 como referencia externa para la construcción de variables, calculando la distancia de cada medición óptica respecto a los límites físicos especificados para la clase de presupuesto óptico de la red. Esta decisión evita definir umbrales de forma circular a partir de los mismos datos que luego se evalúan, y se alineó con la perspectiva industrial descrita en la sección 1.4.4 del Hito 2, que enfatiza la correlación con presupuestos de potencia (\textit{link loss budgets}).
  
-\textbf{Alcance del módulo de reducción de dimensionalidad (M.3).} La aplicación de técnicas de reducción se mantiene planificada, pero su ejecución quedó supeditada a la selección definitiva del algoritmo, dado que su pertinencia depende del modelo: los ensambles de árboles toleran variables correlacionadas sin degradación, mientras que los modelos lineales sí requieren tratamiento de colinealidad.
+\item \textbf{Alcance del módulo de reducción de dimensionalidad (M.3):} La aplicación de técnicas de reducción se mantiene planificada, pero su ejecución quedó condicionada a la selección definitiva del algoritmo, dado que su pertinencia depende del modelo: los ensambles de árboles toleran variables correlacionadas sin degradación, mientras que los modelos lineales sí requieren tratamiento de colinealidad.
  
+\end{itemize}
+
 \subsection{Entorno de Soporte y Desarrollo}
  
 \begin{itemize}
@@ -692,7 +698,7 @@ La arquitectura de seis módulos definida en el Hito 2 se mantuvo sin modificaci
  
     \item \textbf{Librerías de visualización y análisis estadístico:} \texttt{matplotlib} para el análisis exploratorio de distribuciones; \texttt{scipy} para pruebas de significancia estadística aplicadas a la evaluación de variables candidatas.
  
-    \item \textbf{Fuentes de datos:} 13 archivos estáticos en formato \texttt{.csv} y \texttt{.xlsx}, provenientes de los sistemas de telemetría de ONT y OLT, el sistema de gestión de alarmas, el sistema geoespacial de infraestructura y el registro de contactos de soporte al cliente. El dataset unificado resultante se persiste localmente para evitar la reejecución completa del pipeline en cada sesión de trabajo.
+    \item \textbf{Fuentes de datos:} 13 archivos estáticos en formato \texttt{.csv} y \texttt{.xlsx}, provenientes de los sistemas de ONT y OLT, el sistema de gestión de alarmas, el sistema geoespacial de infraestructura y el registro de contactos de soporte al cliente. El dataset unificado resultante se persiste localmente para evitar la reejecución completa del pipeline en cada sesión de trabajo.
  
     \item \textbf{Referencia normativa externa:} estándar ITU-T G.984.2 (tablas de niveles de potencia óptica para clases B+ y C+), utilizado en la construcción de variables del módulo M.3.
  
@@ -702,8 +708,351 @@ La arquitectura de seis módulos definida en el Hito 2 se mantuvo sin modificaci
 \end{itemize}
 
 
+\section{Revisión del Prototipo}
+\subsection{Contexto General del prototipo}
+\noindent
+El prototipo desarrollado en este hito implementa la cadena de procesamiento de datos del sistema, esto es, el trayecto que va desde los archivos crudos exportados por los sistemas de Liberty Latinamerica hasta
+un conjunto de datos consolidado, enriquecido y apto para el entrenamiento de modelos predictivos. Dicha cadena comprende la extracción de las fuentes (M.1), su limpieza y unión bajo una observación en común (M.2), y la construcción de
+variables derivadas (M.3).\\\\
+
+\noindent
+La arquitectura completa definida en el Hito 2 contempla, además, una serie de acciones que traducen la salida del modelo en una alerta operativa: modelo predictivo (M.4) $\rightarrow$ una generación de ticket Zammad (M.5) $\rightarrow$ notificación por correo electrónico (M.6).
+El módulo de modelado opera sobre el dataframe final y la integración con Zammad es funcional. Sin embargo, la conexión en ambos lados no ha sido establecida, dado que requiere la selección del modelo.\\\\
+
+\noindent
+En consecuencia, el prototipo permite hoy ejecutar de extremo a extremo la transformación de datos crudos en un conjunto listo para el entrenamiento y evaluar cuantitativamente el aporte predictivo de cada variable
+construida, pero no la emisión automática de alertas a partir de predicciones reales.
+
+
+\subsection{Esquema General de Componentes del Prototipo}
+
+\begin{itemize}
+    \item \textbf{Cadena de datos operativo (M.1 $\rightarrow$ M.2 $\rightarrow$ M.3):} Procesa las 13 fuentes disponibles, realiza la unión de 8 de ellas en un conjunto de 999.766 registros con 99
+    variables a nivel de ONT por día, y construye las variables derivadas evaluadas en este hito. El proceso es reproducible desde el estado inicial.
+
+    \item \textbf{Variable objetivo:} La variable objetivo (falla\_optica) se construye a partir del texto de alarma del archivo núcleo, restringida a eventos de naturaleza óptica, siendo contrastada con una fuente de monitoreo independiente.
+    
+    \item \textbf{Modelado:} Se ejecuta entrenamientos con Random Forest y LightGBM, como instrumento de medición del aporte a las variables construidas. No se ha seleccionado un modelo definitivo ni establecido un punto de operación.
+    
+    \item \textbf{Integración de Ticketing (M.5):} La comunicación con la API REST Zammad se encuentra implementada sobre una instancia desplegada en contenedor Docker, a la espera de recibir las predicciones.
+    
+    \item \textbf{Notificación (M.6):} Se encuentra disponible el flujo de envío de correo a partir del ticket generado. 
+\end{itemize}
+
+
+
+\subsection{Descripción de Componentes}
+\noindent
+A continuación se describen los componentes implementados, su interacción, fundamento teórico, elementos tecnológicos y funciones principales, en correspondencia con la definición de los módulos de la sección 5.
+
+\subsubsection*{(a) Fuentes de datos (M.1)}
+ 
+\begin{itemize}
+    \item \textit{General}: carga de los archivos exportados desde los sistemas de medición de Liberty Latinamerica respecto a dispositivos ONT y OLT, el sistema de gestión de alarmas, el sistema geoespacial de infraestructura y el registro de contactos de soporte.
+    \item \textit{Interacción}: entrega las estructuras de datos crudos al módulo de pipeline y limpieza, sin transformación previa.
+    \item \textit{Marco teórico}: la medición pasiva de la red contiene información suficiente para inferir el estado de salud de la infraestructura sin intervención física exploratoria.
+    \item \textit{Elementos tecnológicos}: \textbf{pandas} para la lectura de archivos en formato \textbf{.csv} y \textbf{.xlsx}.
+    \item \textit{Funciones}: cargar cada fuente preservando su estructura original, registrar el número de registros leídos por archivo y verificar la presencia de las columnas declaradas en el esquema.
+\end{itemize}
+
+
+\subsubsection*{(b) Pipeline y limpieza (M.2)}
+ 
+\begin{itemize}
+    \item \textit{General}: consolida las fuentes en un único conjunto de datos con unidad de observación ONT-día, corrige inconsistencias de formato y trata los valores ausentes según su origen.
+    \item \textit{Interacción}: recibe las estructuras crudas de M.1 y entrega el conjunto consolidado a M.3.
+    \item \textit{Marco teórico}: la consolidación se apoya en la topología de la red, empleando como identificadores de cruce la cuenta del suscriptor y la ubicación física del equipo (sitio, chasis, tarjeta y puerto), conforme al esquema de gestión de infraestructura FTTH/GPON descrito en [3]. El tratamiento de valores atípicos adopta un criterio conservador, dado que en un problema de detección de degradaciones la caída abrupta de potencia constituye, estadísticamente, un valor atípico, y su eliminación suprimiría la señal de interés.
+    \item \textit{Elementos tecnológicos}: \textbf{pandas} y \textbf{numpy}.
+    \item \textit{Funciones}: unifica fuentes con identificadores en común, estandarizar tipos de dato, identificar y anular/tratar los valores excepcionales.
+\end{itemize}
+
+
+\subsubsection*{(c) Feature Engineering (M.3)}
+ 
+\begin{itemize}
+    \item \textit{General}: construye variables derivadas a partir del conjunto unificado, con el propósito de expresar las mediciones en términos que faciliten al algoritmo la identificación de patrones de degradación.
+    \item \textit{Interacción}: recibe el conjunto consolidado de M.2 y entrega el conjunto enriquecido a M.4.
+    \item \textit{Marco teórico}: la construcción de variables se fundamenta en el conocimiento topológico y en la desviación respecto de los presupuestos de potencia óptica (\textbf{link loss budgets}), conforme a la perspectiva industrial descrita en [6], [7]. Los límites de dichos presupuestos se toman del estándar ITU-T G.984.2, lo que evita definirlos de forma circular a partir de los mismos datos que posteriormente se evalúan. Adicionalmente, se incorporan variables de agregación por punto de conexión compartido, dado que en una arquitectura PON los equipos conectados a un mismo puerto comparten el tramo de distribución óptica.
+    \item \textit{Elementos tecnológicos}: \textbf{pandas}, \textbf{numpy} y \textbf{scipy} para las pruebas de significancia aplicadas a la evaluación de variables candidatas.
+    \item \textit{Funciones}: calcular el margen de cada medición óptica respecto de los límites del estándar, construir variables adicionales a nivel de puerto de conexión compartido; generar indicadores de disponibilidad por fuente; y evaluar el aporte de cada variable construida mediante contraste estadístico.
+\end{itemize}
+
+\subsubsection*{(d) Modelo predictivo (M.4)}
+ 
+\begin{itemize}
+    \item \textit{General}: entrena algoritmos de clasificación sobre el dataframe final y estima la probabilidad de falla óptica por registro. En el estado actual opera en modalidad exploratoria.
+    \item \textit{Interacción}: utiliza el dataframe por M.3. Su salida está destinada a M.5, conexión aún no establecida.
+    \item \textit{Marco teórico}: el desbalance de clases propio de los datos operativos de red exige técnicas específicas, siendo los modelos de ensamble la estrategia respaldada por la literatura para este tipo de problema [4]. La evaluación se basa en métricas definidas sobre la clase minoritaria, dado que la exactitud resulta inadecuada ante una prevalencia del 0,516\,\%.
+    \item \textit{Elementos tecnológicos}: \textbf{scikit-learn}, \textbf{imbalanced-learn} (SMOTENC) y \textbf{LightGBM}.
+    \item \textit{Funciones}: particiona el conjunto respetando la agrupación por dispositivo, aplicar técnicas de tratamiento del desbalance, entrenar los modelos candidatos (en fase exploratoria) y estimar métricas de desempeño.
+\end{itemize}
+
+\subsubsection*{(e) Integración de ticketing (M.5)}
+ 
+\begin{itemize}
+    \item \textit{General}: traduce las predicciones que superan el umbral de decisión dentro de la plataforma de gestión de la empresa.
+    \item \textit{Interacción}: recibirá los identificadores del equipo afectado y la probabilidad estimada desde M.4, y notificará a M.6 la creación del ticket.
+    \item \textit{Marco teórico}: el valor del mantenimiento predictivo depende de que la salida analítica se integre al flujo de trabajo existente.
+    \item \textit{Elementos tecnológicos}: Zammad desplegado en contenedor Docker y comunicación mediante API REST.
+    \item \textit{Funciones}: evalúa la probabilidad frente al umbral vigente, construye el payload (API Zammad) con los identificadores del equipo y la severidad asociada e invoca la creación del ticket.
+\end{itemize}
+
+
+\subsubsection*{(f) Salida de predicción y notificación (M.6)}
+ 
+\begin{itemize}
+    \item \textit{General}: constituye la interfaz con el usuario final, mediante el envío de un reporte por correo electrónico a partir del ticket generado.
+    \item \textit{Interacción}: se activa a partir de la creación del ticket en M.5.
+    \item \textit{Marco teórico}: la comunicación de la predicción debe incorporar los elementos que permitan al personal técnico evaluar su pertinencia.
+    \item \textit{Elementos tecnológicos}: Contiene un sistema de notificación por correo de Zammad, contenido en formato HTML ligero sin recursos externos para su correcta visualización en dispositivos móviles.
+    \item \textit{Funciones}: formatea el reporte priorizando la jerarquía visual de la información crítica, e incluye la ubicación del segmento afectado, el equipo específico y la probabilidad estimada de falla.
+\end{itemize}
+
+\subsection{Interfaces Implementadas en el Prototipo}
+ 
+El sistema no contempla una interfaz gráfica para la operación del modelo, dado que su salida se consume a través de la plataforma de \textbf{ticketing}. En consecuencia, las interfaces del prototipo corresponden a la salida de notificación destinada al usuario final.\\\\
+
+\noindent
+La integración con la plataforma de \textbf{Ticketing} se encuentra operativa sobre una instancia de Zammad desplegada en un contenedor Docker. La figura \ref{fig:Zammad1} muestra el historial de incidencias generadas mediante la API REST,
+lo que evidencia el funcionamiento del mecanismo de creación automática de tickets especificado en el RF8.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Esquemas e imágenes/ZAMMAD1.png}
+    \caption{Interfaz Historial de tickets Zammad}
+    \label{fig:Zammad1}
+\end{figure}
+
+El envío de la notificación por correo electrónico fue verificado de manera preliminar durante las pruebas de integración, si bien no se dispone de registro documental de dicha ejecución en el presente informe. Su configuración
+definitiva requiere el uso de una cuenta de correo destinada al entorno de pruebas, tarea contemplada para la siguiente entrega junto con los casos de los planes de prueba.
+
+
+
+\section{Verificación, Validación y Testing}
+\label{sec:vvt}
+\noindent
+verificación determina si los productos de cada etapa del desarrollo satisfacen los requisitos y 
+ especificaciones establecidos para dicha etapa; en el contexto de este proyecto, si cada módulo implementa
+  correctamente su diseño. La validación determina si el sistema resultante satisface el uso previsto 
+  y las necesidades del usuario; en este caso, si las alertas generadas permiten a Liberty Latinamerica anticipar
+   degradaciones físicas en la red FTTH con una precisión que justifique el mantenimiento preventivo de la fibra.\\
+
+\subsection{Verificación}
+\label{subsec:verificacion}
+
+\noindent
+La verificación tiene por objetivo demostrar que los datos que ingresan al modelo corresponden exactamente
+ a lo especificado en el diseño. Los defectos en la limpieza rara vez producen
+  errores de ejecución. No obstante, generan conjuntos de datos estructuralmente válidos pero con contenido incorrecto
+  , que el modelo va incorporar de manera posterior provocando resultados defectuosos. Por este motivo, la verificación se define en
+   las siguientes etapas que se describen a
+    continuación.\\
+    \newline
+\noindent
+\textbf{Carga de datos } 
+\\
+Cada fuente de datos se importa, se filtra a registros de Panamá mediante el prefijo \texttt{PAN} del identificador de sitio, y se perfila mediante 
+la fracción de valores nulos por columna. El Cuadro~\ref{tab:carga} resume los volúmenes que reporta el notebook antes
+y después de la limpieza. Además, se descartan las líneas mal formadas y se contabilizan el número de estas por archivo.
+
+\begin{table}[htbp]
+\centering
+\caption{Volumen de registros por fuente según el notebook de minería de datos}
+\label{tab:carga}
+\small
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\textwidth}{|p{6.1cm}|r|>{\raggedleft\arraybackslash}p{2.5cm}|X|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{Fuente}} & \textcolor{white}{\textbf{Cargados}} & \textcolor{white}{\textbf{Tras limpieza}} & \textcolor{white}{\textbf{Rol}} \\ \hline
+\texttt{mosaic\_\allowbreak{}ont\_\allowbreak{}sts\_\allowbreak{}cwp.csv} & 1.000.000 & 999.766 & Núcleo (\texttt{serial} + \texttt{dt}) \\ \hline
+\texttt{bbms\_\allowbreak{}portstats.csv} & 999.953 & 446.357 & Integrada \\ \hline
+\texttt{bbms\_\allowbreak{}subscribers\allowbreak{}dump.csv} & 999.941 & 950.222 & Integrada \\ \hline
+\texttt{cwp\_\allowbreak{}historic\_\allowbreak{}fixed\_\allowbreak{}network\_\allowbreak{}points.csv} & 990.497 & 990.497 & Integrada \\ \hline
+\texttt{cwp\_\allowbreak{}Serviceabily\_\allowbreak{}HFC\_\allowbreak{}FTTH\_\allowbreak{}2024\_\allowbreak{}GAA\_\allowbreak{}2025.csv} & --- & 33.958 (nivel FDP) & Integrada (agregada por OLT) \\ \hline
+\texttt{mosaic\_\allowbreak{}pon\_\allowbreak{}sts\_\allowbreak{}cwp.csv} & 1.000.000 & 1.000.000 & Integrada \\ \hline
+\texttt{nce.csv} & 999.650 & 407.088 (eventos) & Integrada (agregada por día) \\ \hline
+\texttt{pca\_\allowbreak{}wsp\_\allowbreak{}feb\_\allowbreak{}abr\_\allowbreak{}2026\_\allowbreak{}detalle.csv} & 114.183 & 114.110 & Integrada \\ \hline
+\texttt{PON.xlsx} & --- & 14.298 (100.086 en formato largo) & Reservada para validación \\ \hline
+\texttt{ONT.csv} & --- & 214.751 & Excluida  \\ \hline
+\texttt{NOC.csv} & --- & 4.668 & Excluida  \\ \hline
+\texttt{mosaic\_\allowbreak{}ont\_\allowbreak{}sts\_\allowbreak{}stats\_\allowbreak{}cwp.csv} & 1.999 & 1.975 & Excluida \\ \hline
+\texttt{pca\_\allowbreak{}wsp\_\allowbreak{}feb\_\allowbreak{}abr\_\allowbreak{}2026\_\allowbreak{}agregado.csv} & 385 & 385 & Excluida  \\ \hline
+\end{tabularx}
+\end{table}
+
+\paragraph{Limpieza por archivo .}
+Para asegurar la integridad de los datos, se aplicaron los siguientes tratamientos de limpieza y estandarización:
+\begin{itemize}
+    \item \textbf{Unicidad de llaves:} Se eliminan los duplicados de  (\texttt{port\_id}, \texttt{dt}) en \texttt{bbms\_portstats}, asimismo en \texttt{cwp\_Serviceabily} verifica cero duplicados por (\texttt{oltid}, \texttt{fdh}, \texttt{fdp}, \texttt{name}). 
+    \item \textbf{Eliminación de lecturas físicamente imposibles:} en \texttt{bbms\_portstats} se anulan las potencias iguales a 21.474.836 o con magnitud superior a 60 dBm. En el núcleo se anulan los valores de $-50$ dBm en \texttt{olt\_rx} y \texttt{olt\_tx}, y se marcan como \texttt{lectura\_optica\_atipica} las lecturas con \texttt{olt\_rx} positiva u \texttt{olt\_tx} inferior a $-10$ dBm. En \texttt{ONT.csv} se anulan los contadores BIP superiores a 1.000.000 (indicador \texttt{bip\_overflow\_detectado}) y los tiempos de actividad negativos. En \texttt{mosaic\_ont\_sts\_stats} se descartan los registros del 14 de abril de 2026, cuyos conteos de ONT en servicio, advertencia e interrupción son simultáneamente nulos.
+    \item \textbf{Ausencia total frente a ausencia parcial:} cuando todas las mediciones de un grupo están vacías se crea un indicador (\texttt{ont\_sin\_medicion}, \texttt{ont\_sin\_telemetria}, \texttt{ont\_sin\_servicio\_asignado}) y no se ingresa. Cuando la ausencia es parcial, se ingresa la mediana (variables continuas) o la moda (variables categóricas).
+    \item \textbf{Fechas en formato mixto:} \texttt{NOC.csv} combina los formatos DD/MM/AAAA y MM/DD/AAAA. Se interpreta como día el primer campo cuando es mayor que 12 y se identifican las fechas ambiguas, en las que ambos campos son menores o iguales a 12.
+\end{itemize}
+
+
+\subsection{Validación}
+\label{subsec:validacion}
+\noindent
+La validación evalúa la adecuación del sistema a la necesidad operativa de Liberty Latinamerica,
+ formalizada en los requerimientos RF5 (entrenamiento y validación mediante validación cruzada),
+  RF6 (generación de predicciones) y RF7 (cálculo de métricas), así como en el criterio de selección de M.4
+   (Sección~\ref{subsec:modelo}), que privilegia el F1-Score y el área bajo la curva de precisión-cobertura (PR-AUC) 
+   por sobre la exactitud.
+
+\subsubsection{Validación ejecutada de la variable objetivo}
+La definición de \textbf{falla\_optica} se contrastó contra el registro de
+alarmas de un sistema de gestión de red independiente del que origina la
+variable, aislando en éste los eventos de naturaleza óptica (21.133 registros).
+El cruce por dispositivo y día identificó 10.902 registros marcados por ambas
+fuentes.\\\\
+
+\noindent
+El indicador de validez adoptado no es la coincidencia absoluta, sino el
+enriquecimiento: la probabilidad de que un registro esté etiquetado como falla
+es del 2,578\,\% cuando el sistema independiente reporta una alarma óptica,
+frente a 0,493\,\% cuando no la reporta, lo que equivale a un factor de 5,2.
+Dado que ambos sistemas no comparten el sistema en donde son capturado los datos, esta concordancia
+constituye evidencia de validez de \textbf{falla\_optica}.\\\\
+
+\noindent
+El contraste se repitió admitiendo desfases de hasta dos días entre ambas
+fuentes, obteniéndose factores de 5,2 ($\pm$0 días), 4,8 ($\pm$1 día) y 5,4
+($\pm$2 días). La ausencia de una tendencia creciente indica que la
+concordancia no depende de la tolerancia temporal adoptada.\\\\
+
+\noindent
+Adicionalmente, se verificó que la variable es reconstruible de forma
+determinista a partir de su columna de origen (no hay discrepancia de los
+999.766 registros) y que ninguna variable derivada de dicha columna forma parte
+del conjunto de predictores, descartando la fuga de información directamente.
+
+\subsection{Métricas de desempeño.}
+En un conjunto en el que la gran mayoría de los registros ONT-día corresponde a operación normal,
+ un clasificador que asigne sistemáticamente la clase ``sin falla'' alcanza una exactitud próxima al 100\,\%
+  sin detectar degradación alguna. La evaluación se basa, por tanto, en métricas definidas sobre la clase de interés.
+   La \textbf{precisión} cuantifica la fracción de alertas emitidas que corresponde a fallas reales, y el
+    recall la fracción de fallas reales que fueron alertadas. El F1-Score combina ambas:
+\begin{equation}
+    F_1 = \frac{2 \cdot P \cdot R}{P + R}
+    \label{eq:f1}
+\end{equation}
+donde:
+\begin{itemize}
+    \item $P = TP/(TP + FP)$ es la precisión;
+    \item $R = TP/(TP + FN)$ es el recall;
+    \item $TP$ es el número de registros con falla alertados por el modelo (verdaderos positivos);
+    \item $FP$ es el número de registros sin falla alertados por el modelo (falsos positivos);
+    \item $FN$ es el número de registros con falla no alertados por el modelo (falsos negativos).
+\end{itemize}
+Dado que el F1-Score depende del umbral de decisión, se complementa con el PR-AUC, estimado mediante la precisión promedio:
+\begin{equation}
+    AP = \sum_{n} \left( R_n - R_{n-1} \right) P_n
+    \label{eq:ap}
+\end{equation}
+donde $n$ indexa los umbrales de decisión ordenados de mayor a menor, $P_n$ y $R_n$ son la precisión y el recall obtenidos con el umbral $n$, y $R_0 = 0$. 
+
+
+\subsection{Plan de Testing}
+\label{subsec:testing}
+\noindent
+El plan de pruebas traduce las actividades anteriores en casos ejecutables. Las pruebas unitarias, de integración y de continuidad operativa.
+\\
+\noindent
+\\
+\textbf{Pruebas unitarias.}
+\newline
+El Cuadro~\ref{tab:unitarias} define los casos  para  las funciones de limpieza.
+
+\begin{table}[H]
+\centering
+\caption{Casos de prueba unitarios sobre las reglas de limpieza del notebook}
+\label{tab:unitarias}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{1.15cm}|p{1.2cm}|X|X|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Sección}} & \textcolor{white}{\textbf{Caso}} & \textcolor{white}{\textbf{Resultado esperado}} \\ \hline
+UT-01 & 3.1 & \texttt{uptime\_a\_segundos("19d 4h 38m 14s")} & 1.658.294~s \\ \hline
+UT-02 & 3.1 & \texttt{uptime\_a\_segundos} con valor nulo y con componentes omitidos (\texttt{"0d 6h 4m 26s"}) & Valor nulo; 21.866~s \\ \hline
+UT-03 & 5.1 & Potencia $R_x$ igual a 21.474.836 y potencia de 75~dBm & Ambos valores anulados \\ \hline
+UT-04 & 3.5 & \texttt{olt\_rx} igual a $-50$~dBm; \texttt{olt\_rx} igual a $+1{,}2$~dBm & Valor anulado \texttt{lectura\_optica\_atipica} verdadero \\ \hline
+UT-05 & 3.5 & Registro con las cinco mediciones vacías; registro con una sola vacía & \texttt{ont\_sin\_medicion} verdadero sin integración; integración solo del campo vacío \\ \hline
+UT-06 & 3.5 & Dos registros con igual (\texttt{serial}, \texttt{dt}), uno con alarma & Se conserva un único registro, el que tiene alarma \\ \hline
+UT-07 & 3.10 & Contador BIP igual a 2.475.388.463 & \texttt{bip\_overflow\_detectado} verdadero y valor anulado \\ \hline
+UT-08 & 3.9 & \texttt{parsear\_fecha\_noc("30/10/2025")} y \texttt{("3/25/2026")} & 30-10-2025 y 25-03-2026 \\ \hline
+UT-09 & 3.9 & \texttt{es\_ambiguo("1/3/2026")} & Verdadero; fecha interpretada documentada \\ \hline
+UT-10 & 3.8 & Expresión regular sobre \texttt{"Frame=0, Slot=13, Subslot=65535, Port=7, ONUID=35"} y sobre la misma cadena sin \texttt{ONUID} & (0, 13, 7, 35); \texttt{alarma\_nivel\_card} verdadero \\ \hline
+UT-11 & 3.6 & Registro horario con conteos de servicio, advertencia e interrupción iguales a cero & Registro excluido \\ \hline
+\end{tabularx}
+\end{table}
+\noindent
+\textbf{Pruebas de integración.}
+\newline
+Las pruebas de integración verifican el pipeline de datos.
+
+\begin{table}[H]
+\centering
+\caption{Casos de prueba de integración}
+\label{tab:integracion}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{1.15cm}|p{1.9cm}|X|X|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Cadena}} & \textcolor{white}{\textbf{Caso}} & \textcolor{white}{\textbf{Resultado esperado}} \\ \hline
+IT-01 & M.1$\rightarrow$M.2 & Ejecución completa del programa desde un núcleo reiniciado, dos veces & Sin errores; 999.766 registros \\ \hline
+IT-02 & M.2 & Siete uniones sobre el núcleo & Filas sin cambio y tasa de coincidencia reportada en cada unión \\ \hline
+IT-03 & M.2 & Seguimiento de un conjunto de ONT de control desde el archivo de origen hasta \texttt{df\_final} & Identificadores y valores trazables en cada etapa \\ \hline
+IT-04 & M.2 & Inspección de columnas de \texttt{df\_final} y de archivos exportados & Ausencia de nombres, direcciones y coordenadas de clientes (R2) \\ \hline
+IT-05 & M.4$\rightarrow$M.5 & Predicción superior al umbral para un puerto PON en una instancia de prueba de Zammad & Un ticket con OLT, puerto, severidad y probabilidad \\ \hline
+IT-06 & M.4$\rightarrow$M.5 & Predicciones idénticas consecutivas sobre el mismo puerto & Un único ticket (Sección~\ref{subsec:zammad}) \\ \hline
+IT-07 & M.5$\rightarrow$M.6 & Ticket generado a partir de una predicción & Correo HTML sin recursos externos, con ubicación, equipo y probabilidad \\ \hline
+\end{tabularx}
+\end{table}
+
+\textbf{Pruebas de continuidad operativa.} 
+\newline
+Las pruebas de aceptación se ejecutarán una vez definidos la señal de falla y el modelo. El sistema se plantea ejecutarse de forma secuencial, día a día,  y sus alertas se contrastan con los eventos efectivamente registrados, sin intervención
+ sobre el entorno productivo inicialmente. Se contemplan tres casos:
+\begin{itemize}
+    \item \textbf{CD-01, contraste con eventos registrados:} fracción de eventos de falla precedidos por al menos una alerta y número de alertas por evento, calculados sobre el período de prueba del nivel puerto PON-día.
+    \item \textbf{CD-02, revisión experta:} El jefe de operaciones (tutor) examina una muestra de alertas estratificada por severidad, que incluye falsos positivos, y registran si cada una es accionable. Esta revisión valida simultáneamente las interpretaciones de campos señaladas en la Sección~\ref{subsec:validacion}.
+    \item \textbf{CD-03, legibilidad del reporte:} el usuario recibe la notificación en su dispositivo móvil y se registra si identifica equipo, ubicación y severidad sin información adicional.
+\end{itemize}
+Los criterios de aceptación de estas pruebas dependen de la capacidad operativa de Liberty Latinamerica, por lo que serán acordados con el tutor antes de su ejecución. 
+
+\subsection{Análisis Crítico y Evaluación de Riesgos}
+\label{subsec:riesgos_tecnicos}
+\noindent
+Los riesgos P1 a P3, descritos en la Sección~\ref{subsec:riesgos}, corresponden a riesgos de gestión del proyecto. El Cuadro~\ref{tab:riesgos_tecnicos} los sintetiza junto con su probabilidad e impacto estimados, las medidas de mitigación y el indicador de seguimiento.
+
+\begin{table}[htbp]
+\centering
+\caption{Riesgos técnicos de implementación (P: probabilidad, I: impacto, A: alta, M: media, B: baja)}
+\label{tab:riesgos_tecnicos}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|p{0.9cm}|X|p{0.4cm}|p{0.4cm}|X|X|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{ID}} & \textcolor{white}{\textbf{Riesgo}} & \textcolor{white}{\textbf{P}} & \textcolor{white}{\textbf{I}} & \textcolor{white}{\textbf{Mitigación}} & \textcolor{white}{\textbf{Indicador}} \\ \hline
+RT1 & Cobertura temporal insuficiente de la telemetría de ONT & A & A & Solicitar extractos de varios meses (D1). Validar la predicción a nivel de puerto PON & Días de historia por fuente \\ \hline
+RT2 & Señal de falla contaminada por eventos no ópticos & A & A & Taxonomía de alarmas validada por el tutor. Contraste con \texttt{PON.xlsx} & Correlación de rangos con la fuente independiente \\ \hline
+RT3 & Exposición de datos personales (R2) & B & B & Eliminar \texttt{service\_address}. Agregar el mapa a nivel de OLT & Prueba IT-04 \\ \hline
+RT4 & Fuga de información en la evaluación & M & A & Partición temporal agrupada por puerto. Exclusión de variables derivadas de la etiqueta & Diferencia entre desempeño de validación y de prueba \\ \hline
+RT5 & Distorsión de la distribución óptica. & M & A & Cuantificar la fracción de datos reemplazados & Fracción de datos reemplazados por columna \\ \hline
+RT6 & Uniones sin coincidencia no detectadas & M & M & Tasa de coincidencia por unión & Prueba IT-02 \\ \hline
+RT7 & Ejecución no reproducible del programa & M & M & Ejecución completa desde núcleo reiniciado. & Prueba IT-01 \\ \hline
+RT8 & Interpretación incorrecta de campos sin diccionario (D2) & M & M & Validación de umbrales y significados con el operador & Decisiones validadas / decisiones totales \\ \hline
+RT9 & Falsos positivos y fatiga de alertas & A & A & Agregación por puerto PON. Umbral según capacidad de despacho. Control de duplicados en M.5 & Precisión operativa de los tickets \\ \hline
+\end{tabularx}
+\end{table}
+
 
 \section{Gestión de Riesgos:}
+    \label{sec:riesgos}
 
         \subsection{\textbf{Supuestos:}}
                     \begin{itemize}
@@ -724,6 +1073,7 @@ La arquitectura de seis módulos definida en el Hito 2 se mantuvo sin modificaci
                         \item \textbf{R3-Alcance de la implementación:} El proyecto se limita al desarrollo analítico y simulación del modelo predictivo, quedando estrictamente fuera de alcance la implementación o despliegue del software en la red viva de la empresa.
                     \end{itemize}
         \subsection{\textbf{Riesgos:}}
+        \label{subsec:riesgos}
                     \begin{itemize}
                         \item \textbf{P1-Calidad deficiente en los datos crudos:} Es posible que los archivos Excel entregados contengan demasiados valores nulos, formatos inconsistentes o ruido, impidiendo que el modelo aprenda correctamente. Se destinará una mayor cantidad de tiempo para el preprocesamiento e implementación de técnicas de limpieza estadística robustas.
                         \item \textbf{P2-Retraso en la entrega de la data:} Que la jefatura tarde más de lo presupuestado en extraer y enviar los datos desde los sistemas. Para mitigar este problema, se generarán datasets sintéticos con la misma estructura para programar y probar el código del pipeline antes de que los datos sean entregados por el tutor.
@@ -732,6 +1082,7 @@ La arquitectura de seis módulos definida en el Hito 2 se mantuvo sin modificaci
 
 
     \section{Diseño de interfaz}
+    \label{sec:interfaz}
     \noindent
     El diseño de interfaz se centra en la visualización de los resultados del modelo predictivo y distribución de datos. Se propone un sistema de notificación por correo electrónico que entrega
     reportes de posibles fallas en la red FTTH, reduciendo así la fricción cognitiva del usuario para justificar esta decisión al materializar la integración con la plataforma de ticketing Zammad. Esto garantiza
@@ -833,6 +1184,12 @@ Z. Abdellaoui, Y. Dieudonne, y A. Aleya, ``Design, implementation and evaluation
 
 \bibitem{isp_predictive}
 A. N. Philip y A. E. Aeroborman, ``Using Machine Learning for Predictive Maintenance in Fiber-based ISP Networks,'' \textit{International Journal of Modern Science and Research Technology}, vol. 3, no. 10, pp. 742-747, Oct. 2025.
+
+\bibitem{bhais_gpon}
+O. A. A. Bhais, Z. I. Mohd Yusoh, M. F. Iskandar Othman, M. Sammour, N. Bahaman, y N. Z. Syazrah Othman, ``Machine Learning-Based Proactive Fault Monitoring and Prediction in GPON Networks,'' \textit{Modern Applied Science}, vol. 19, no. 2, pp. 13-31, 2025.
+
+\bibitem{ieee1012}
+``IEEE Standard for System, Software, and Hardware Verification and Validation,'' \textit{IEEE Std 1012-2016}, IEEE, 2017.
 
 \end{thebibliography}
 \end{document}
