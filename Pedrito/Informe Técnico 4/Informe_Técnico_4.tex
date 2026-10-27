@@ -37,7 +37,7 @@
 % Parte Inferior (Pie de página) - ACTUALIZADO
 \lfoot{PMM}                     % Extremo izquierdo
 \cfoot{\thepage}                % Centro (Número de página)
-\rfoot{$1^o$ Semestre}         % Extremo derecho
+\rfoot{$2^o$ Semestre}         % Extremo derecho
 
 % Líneas divisorias (Opcional)
 \renewcommand{\headrulewidth}{0.4pt} % Línea horizontal arriba
@@ -60,8 +60,8 @@
     \vspace{1cm}
     
 
-    {\large Hito 3: Desafío Técnico 14 \par}
-    \vspace{3.5cm}
+    {\large Hito 4: Desafío Técnico 14 \par}
+    \vspace{2cm}
     
 
     \begin{center}
@@ -82,7 +82,7 @@
     
     {\large Universidad Técnica Federico Santa María \par}
     {\large Departamento de Electrónica \par}
-    {\large 2025 \par}
+    {\large 2026 \par}
     
 \end{titlepage}
 
@@ -168,10 +168,10 @@
         \item \textbf{Usuario:} El usuario principal directo corresponde a ingenieros de operaciones y equipo de mantenimiento de Liberty Latinamerica, quienes recibirán por notificación o correo reportes
         predictivos para gestionar personal encargado del mantenimiento preventivo. Como usuarios secundarios o beneficiarios indirectos se encuentran los clientes finales, quienes experimentarán una mejora sustancial en la QoE
         y QoS al reducir los tiempos de indisponibilidad y las incidencias técnicas.
-        \item \textbf{Producto:} El producto consiste en un pipeline y un modelo predictivo de Machine Learning capaz de procesar los datos históricos estructurados para anticipar anomalías y degradaciones en la red de acceso FTTH. Su salida
-        principal es una alerta preventiva adjunto a su probabilidad de falla asociada a equipos y segmentos específicos de la red, lo que permitirá a la gerencia tomar decisiones informadas sobre el despliegue de recursos técnicos para el mantenimiento preventivo.
+        \item \textbf{Producto:} El producto, denominado comercialmente \textbf{PrediFibra} (Sección~\ref{sec:predifibra}), es una plataforma en la nube que procesa cada mañana la foto diaria de la red, calcula con un modelo de Machine Learning la probabilidad de que cada equipo presente una falla óptica nueva al día siguiente y genera tickets de mantenimiento preventivo priorizados en Zammad, con aviso por correo al equipo de operaciones.
+        Cada alerta indica el equipo, la central, el puerto PON y, cuando la topología lo permite, el armario de distribución, lo que permite a la gerencia decidir las salidas o el despliegue de personal técnico a zona.
         \item \textbf{Valor agregado:} El contexto de aplicación se enmarca en la industria de las telecomunicaciones y la gestión de infraestructura de proveedores de servicio de internet (ISP). Se orienta hacia el nicho de mantenimiento predictivo
-        inteligente, en colaboración directa con actores corporativos de Liberty Latinamerica para validar la solución en un entorno operativo real, priorizando la eficiencia técnica sobre la comercialización del producto. 
+        inteligente, en colaboración directa con actores corporativos de Liberty Latinamerica para validar la solución en un entorno operativo real. A partir del Hito 4, la solución se plantea además como un producto comercial dirigido a operadores FTTH medianos de Latinoamérica, que se ofrece mediante un piloto pagado, una licencia y una suscripción (Sección~\ref{subsec:oferta}). 
     \end{itemize}
 
 
@@ -606,8 +606,8 @@ resolviendo así la problemática del mantenimiento reactivo en un operador a gr
 Recapitulando, el proyecto consiste en el desarrollo de un modelo predictivo
 de Machine Learning para la detección temprana de anomalías en la red FTTH de Liberty Latinamerica, complementando con
 un sistema de notificaciones automatizados que traduce las predicciones en alertas accionables
-para el personal técnico.  En este hito se consolidó el pipeline desde la extracción de fuentes crudas
-hasta un dataset unificado listo para el entrenamiento, se definió y validó la variable objetivo del modelo.
+para el personal técnico. En el Hito 3 se consolidó el pipeline desde la extracción de fuentes crudas
+hasta un dataset unificado listo para el entrenamiento, y se definió y validó la variable objetivo del modelo. En el Hito 4 se eligió y evaluó el modelo, se conectó la plataforma de punta a punta en Azure y se formuló la propuesta comercial PrediFibra (Sección~\ref{sec:predifibra}).
 
 \subsection{Hitos Principales del Proyecto}
 
@@ -621,8 +621,10 @@ hasta un dataset unificado listo para el entrenamiento, se definió y validó la
     que triplicaron la capacidad predictiva medida respecto a la línea base. Adicionalmente, se implementó la integración con la plataforma Zammad (M.5), pendiente de conexión con la salida del modelo. La selección
     del modelo definitivo aún no forma parte del alcance de este hito.
     
-    \item \textbf{Siguiente hito (planificado):} Cierre de feature engineeing y reducción de dimensionalidad. Evaluación comparativa
-    y selección definitiva del modelo mediante validación cruzada; conexión extremo a extremo entre el modelo predictivo y el sistema de notificaciones. Finalmente queda la evaluación de resultados en condiciones representativas del entorno operativo.
+    \item \textbf{Hito 4 (Prototipo comercial):} Ampliación de los datos a 61 días (14.442.061 equipo-días de 279.964 equipos), procesados con DuckDB y Parquet. La tarea se redefinió como la anticipación de fallas ópticas nuevas para el día siguiente; se eligieron 25 de 47 variables candidatas y se compararon cuatro modelos optimizados con Optuna, eligiéndose LightGBM con dos semanas de validación.
+    En una semana de prueba nunca vista, el modelo ordenó los equipos 17,5 veces mejor que el azar y, con 25 alertas diarias, 1 de cada 9 correspondió a una falla nueva al día siguiente. Se conectó la plataforma de punta a punta en Azure (modelo, Zammad y correo) y se formuló la oferta comercial PrediFibra con sus costos de operación (Sección~\ref{sec:predifibra}).
+
+    \item \textbf{Siguiente etapa (planificada):} Piloto pagado de tres meses con evaluación semanal, registro de la causa de cierre de cada ticket, incorporación de los motivos SHAP al ticket, reentrenamiento con más historia y propuesta de detección sobre mediciones horarias (Sección~\ref{subsec:hoja_ruta}).
 \end{itemize}
 
 
@@ -1101,8 +1103,8 @@ RT9 & Falsos positivos y fatiga de alertas & A & A & Agregación por puerto PON.
 
     \begin{itemize}
         \item \textbf{Inicializador:} El sistema comienza el proceso de evaluación de la red FTTH mediante la ejecución del modelo predictivo.
-        \item \textbf{Filtro de degradación:} Es el núcleo que evalúa el modelo. Si los datos analizados determinan que "No es hallazgo crítico", el flujo se reinicia y queda a la espera de nueva información sin interrumpir al usuario.
-        \item \textbf{Procesa información:} Cuando el modelo detecta que ''Existe una degradación crítica'' (como una caída anómala en la potencia óptica), los datos pasan a esta etapa para estructurar el reporte de impacto.
+        \item \textbf{Filtro de degradación:} Es el núcleo que evalúa el modelo. En el prototipo, el modelo ordena todos los equipos según su riesgo de falla óptica nueva al día siguiente, y solo los primeros de la lista diaria (por ejemplo, 25) se consideran hallazgo crítico. Para el resto, ``No es hallazgo crítico'': el flujo se reinicia y queda a la espera de la foto del día siguiente sin interrumpir al usuario.
+        \item \textbf{Procesa información:} Para los equipos que quedan en la lista del día (''Existe una degradación crítica''), los datos pasan a esta etapa, que agrega su ubicación en la red (central, puerto PON y armario) para estructurar el ticket.
         \item \textbf{Despliegue: Helpdesk:} Se activa el mecanismo de comunicación, invocando la API de Zammad.
         \item \textbf{Vista de Usuario:} El flujo concluye con el ''Envío de Notificación y reporte'' donde el usuario visualiza la alerta directamente en su cliente de mensajería o correo electrónico, cerrando el ciclo de navegación de la información.  
     \end{itemize}
@@ -1115,45 +1117,342 @@ La interfaz de usuario final se ha diseñado pensando en la inmediatez, aprovech
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{Esquemas e imágenes/Interfaz 1.png}
-    \caption{Vista principal de notificación preventiva de Zammad en la bandeja de entrada.}
+    \caption{Vista principal de notificación preventiva de Zammad en la bandeja de entrada (maqueta).}
+    \label{fig:interfaz1}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{Esquemas e imágenes/Interfaz 2.png}
-    \caption{Reporte detallado tras la apertura de la notificación en el cliente de correo.}
+    \caption{Reporte detallado tras la apertura de la notificación en el cliente de correo (maqueta).}
+    \label{fig:interfaz2}
 \end{figure}
 
+\noindent
+Las Figuras~\ref{fig:interfaz1} y~\ref{fig:interfaz2} corresponden a la maqueta de diseño de la notificación, y sus valores son ilustrativos. El ticket implementado en el prototipo, con un ejemplo real, se describe en la Sección~\ref{subsec:alerta}. Los elementos de la notificación y sus diferencias con la maqueta son los siguientes:
+
 \begin{itemize}
-    \item \textbf{Bandeja de entrada:} La alerta se identifica claramente bajo el remitente del sistema de tickets y un asunto prioritario ("Alerta predictiva"), destacándose inmediatamente frente a los correos operativos regulares.
+    \item \textbf{Bandeja de entrada:} La alerta se identifica claramente bajo el remitente del sistema de tickets y un asunto prioritario (``Alerta predictiva''), destacándose inmediatamente frente a los correos operativos regulares.
     
     \item \textbf{Cuerpo de la Alerta:} Una vez abierto el correo, la interfaz presenta un resumen en formato de lista para agilizar la lectura técnica y la toma de decisiones:
     \begin{itemize}
-        \item \textbf{Contexto de la falla:} Se especifica de inmediato el Riesgo de degradación FTTH.
-        \item \textbf{Ubicación y Hardware:} Se expone la topología afectada, detallando la ciudad (Ej. Colón) y el equipo físico (Ej. Dispositivo: OLT-4; Puerto: PON 0/1/2). Esto es vital para orientar rápidamente las acciones del personal en terreno.
-        \item \textbf{Métrica de riesgo:} Se destaca la probabilidad de falla mediante un porcentaje claro (Ej. 85\,\%) acompañado de un indicador visual (círculo de color) que denota la severidad de la alerta de forma intuitiva.  
+        \item \textbf{Contexto de la falla:} Se especifica de inmediato que se trata de un riesgo de falla óptica nueva para el día siguiente.
+        \item \textbf{Ubicación y Hardware:} Se expone la ubicación del equipo en la red: equipo del cliente, central (OLT), puerto PON y, cuando la tabla de topología lo permite, el armario de distribución (en el ejemplo real: central PAN-LMT-CPO-PHM001, puerto PON 0/16/15 y armario CPG-015). La maqueta mostraba la ciudad (Ej. Colón); el ticket implementado la reemplaza por el armario, que orienta mejor las salidas o el despliegue de personal técnico a zona.
+        \item \textbf{Métrica de riesgo:} Se destaca la probabilidad de falla óptica nueva para el día siguiente y el puesto del equipo en la lista del día. El 85\,\% de la maqueta es ilustrativo: como en promedio solo 1 de cada 1.540 equipo-días presenta una falla nueva, los riesgos reales son mucho menores (el más alto del ejemplo real es 25,3\,\%), por lo que la prioridad se expresa con el orden de la lista y no con un umbral fijo.  
     \end{itemize}
 
-    \item \textbf{Detalles del Análisis:} Sección dedicada a la explicabilidad del modelo predictivo, fundamental para generar confianza en el usuario. Aquí se desglosa el impacto estimado (cantidad de ONTs en riesgo de caída inminente), el patrón reconocido por el modelo (ej. atenuación masiva) y la causa temporal de la anomalía detectada.
+    \item \textbf{Detalles del Análisis:} Sección dedicada a la explicabilidad del modelo predictivo, fundamental para generar confianza en el usuario. En lugar del impacto estimado y del patrón que mostraba la maqueta, se presentarán los motivos principales de cada alerta, calculados con valores SHAP (por ejemplo, alarmas ópticas de la semana, aumento de errores de bit y fallas recientes). Estos motivos ya se calculan, pero aún no se incluyen en el ticket (Sección~\ref{subsec:alerta}).
 \end{itemize}
 
 
 
+%==================================================================
+%  HITO 4: PROTOTIPO COMERCIAL (PrediFibra)
+%==================================================================
+% Columnas alineadas a la izquierda para las tablas de esta sección
+\newcolumntype{Q}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Z}{>{\raggedright\arraybackslash}X}
+\section{Prototipo comercial: PrediFibra}
+\label{sec:predifibra}
+\noindent
+En el Hito 4 el prototipo deja de evaluarse solo como un desarrollo técnico y se presenta como un producto que un operador FTTH puede contratar. Ese producto se denomina \textbf{PrediFibra}, y su propuesta comercial se desarrolla en el Plan de Negocios de PrediFibra SpA, elaborado en paralelo en el módulo de Plan de Negocios de las Memorias Transversales. Esta sección resume los avances técnicos que sostienen la oferta (Sección~\ref{subsec:avances_h4}); qué se ofrece y a quién (Secciones~\ref{subsec:oferta} y~\ref{subsec:valor}); cómo funciona la plataforma en la nube y qué recibe el usuario (Secciones~\ref{subsec:arq_azure} y~\ref{subsec:alerta}); cuánto cuesta operarla (Sección~\ref{subsec:costos}); cómo se compara su desempeño con las metas del plan (Sección~\ref{subsec:metas}), y cuáles son sus límites y próximos pasos (Sección~\ref{subsec:hoja_ruta}).
+
+%------------------------------------------------------------------
+\subsection{Avances técnicos desde el Hito 3}
+\label{subsec:avances_h4}
+\noindent
+El Cuadro~\ref{tab:h3_h4} resume los cambios entre el prototipo presentado en el Hito 3 y el que respalda la oferta comercial. El cambio central es la tarea: en el Hito 3 se buscaba detectar fallas ópticas en curso; en el Hito 4 el modelo \textbf{anticipa} las fallas ópticas nuevas (LOSi, LOBi, LOFi o fibra de distribución cortada) que aparecerán en la foto de la red del día siguiente, en equipos que hoy funcionan sin alarma óptica. Los cortes de energía en el domicilio del cliente (\textit{dying gasp}) se excluyen, por ser ajenos a la red.
+
+\begin{table}[!htb]
+\centering
+\caption{Avances del prototipo entre el Hito 3 y el Hito 4}
+\label{tab:h3_h4}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|Q{2.9cm}|Z|Z|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{Aspecto}} & \textcolor{white}{\textbf{Hito 3}} & \textcolor{white}{\textbf{Hito 4}} \\ \hline
+Datos & Cinco días de mayo de 2026: 999.766 registros ONT-día y 99 variables & 61 días (1 de agosto al 30 de septiembre de 2026): 14.442.061 equipo-días de 279.964 equipos, procesados con DuckDB y archivos Parquet \\ \hline
+Tarea & Detección de fallas ópticas en curso & Anticipación de fallas ópticas nuevas para el día siguiente: 8.017 casos en 12.343.745 equipo-días (1 de cada 1.540) \\ \hline
+Variables & 99 columnas del conjunto unificado & 47 variables candidatas; se eligieron 25, el menor conjunto que conserva el 97\,\% del PR-AUC obtenido con todas \\ \hline
+Modelo & Entrenamientos exploratorios con Random Forest y LightGBM, sin modelo elegido & Regresión logística, Random Forest, XGBoost y LightGBM, optimizados con Optuna; se eligió LightGBM por su desempeño en dos semanas de validación \\ \hline
+Evaluación & Partición por dispositivo, con fines exploratorios & Partición en el tiempo: entrenamiento desde el 8 de agosto, dos semanas de validación (8 al 21 de septiembre) y una semana de prueba nunca vista (22 al 29 de septiembre) \\ \hline
+Reproducibilidad & Resultados con leves variaciones entre ejecuciones & Ejecución reproducible: desempates fijos en la limpieza y número fijo de pruebas en Optuna \\ \hline
+Notificación & Zammad en un contenedor Docker, conectado por API REST y a la espera de predicciones & Plataforma desplegada en Azure y conectada de punta a punta: la lista diaria de riesgo genera tickets en Zammad y correos al equipo de IT \\ \hline
+\end{tabularx}
+\end{table}
+
+%------------------------------------------------------------------
+\subsection{PrediFibra: qué es, para quién y cómo se ofrece}
+\label{subsec:oferta}
+\noindent
+PrediFibra es el nombre comercial del prototipo, acompañado del eslogan \textit{``Mantenimiento predictivo para redes FTTH''}. Su misión, tal como la define el Plan de Negocios, es anticipar las fallas de las redes de fibra óptica antes de que las sufran sus usuarios, entregando a los operadores FTTH de Latinoamérica una plataforma predictiva simple, independiente del fabricante y a un precio que un operador mediano puede pagar.\\\\
+
+\noindent
+En términos de producto, PrediFibra toma la foto diaria de la red que el operador ya genera (potencia óptica de OLT y ONT, alarmas ópticas y errores de transmisión), calcula para cada equipo la probabilidad de una falla óptica nueva al día siguiente y entrega cada mañana una lista priorizada de tickets de mantenimiento preventivo. Es solo software: no requiere instalar sondas, OTDR ni otro equipamiento en las centrales. El cliente es una empresa, por lo que se distingue entre quien decide la compra y quien usa el producto:
+\begin{itemize}
+    \item \textbf{Quién compra:} el gerente o director de operaciones de red, de ingeniería de acceso fijo o del NOC de un operador FTTH, que responde por indicadores como cortes por cada mil clientes, tiempo de reparación y costo de las visitas técnicas.
+    \item \textbf{Quién usa:} los ingenieros del NOC, que reciben y priorizan los tickets preventivos, y el personal técnico encargado de las salidas o el despliegue a zona para revisar los equipos alertados.
+\end{itemize}
+
+\noindent
+El Plan de Negocios define tres segmentos, en orden de prioridad: (1) operadores medianos y regionales de Chile, de entre 20.000 y 1.000.000 de accesos de fibra, con redes en expansión y sin un equipo propio de ciencia de datos; (2) las operaciones de Liberty Latin America en Latinoamérica y el Caribe, contraparte de este desafío, donde cada país opera como una unidad de negocio que puede contratar su propia licencia; y (3) otros operadores FTTH de la región a partir del tercer año. La oferta se estructura en tres productos que se contratan en secuencia (Cuadro~\ref{tab:oferta}).
+
+\begin{table}[!htb]
+\centering
+\caption{Oferta comercial de PrediFibra (precios netos de IVA, Año 1 del Plan de Negocios)}
+\label{tab:oferta}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|Q{3.2cm}|Z|Q{2.8cm}|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{Producto}} & \textcolor{white}{\textbf{Qué incluye}} & \textcolor{white}{\textbf{Precio (USD)}} \\ \hline
+Piloto pagado (prueba de concepto) & Tres meses de operación sobre los datos del propio operador, con evaluación semanal de los resultados y un informe final. Permite medir el valor en la red del cliente antes de comprar & 8.000 por piloto \\ \hline
+Licencia y despliegue & Instalación de la plataforma para un operador o una unidad de negocio (por ejemplo, un país de Liberty Latin America), conexión a sus fuentes de datos y ajuste del modelo a su red & 90.000, pago único \\ \hline
+Suscripción a soporte y plataforma & Operación diaria de la plataforma, reentrenamiento del modelo y soporte, mientras el cliente usa el servicio & 18.000 al año (1.500 al mes) \\ \hline
+\end{tabularx}
+\end{table}
+
+%------------------------------------------------------------------
+\subsection{Propuesta de valor y diferenciación}
+\label{subsec:valor}
+\noindent
+Hoy el mantenimiento de la red de acceso es reactivo: el operador se entera de una falla cuando aparece la alarma o cuando el cliente reclama, y la visita técnica es correctiva. PrediFibra entrega cada mañana los equipos con mayor riesgo de una falla óptica nueva al día siguiente, de modo que el NOC pueda revisar de forma remota o coordinar una salida a zona antes de que el cliente perciba el problema. En la semana de prueba (Sección~\ref{subsec:metas}), los resultados que sostienen esa propuesta son:
+\begin{itemize}
+    \item \textbf{Concentra el riesgo.} Con 25 alertas diarias, el 11,0\,\% corresponde a una falla nueva al día siguiente (1 de cada 9), frente a 0,065\,\% al azar (1 de cada 1.529): las alertas concentran las fallas unas 168 veces más que una selección al azar.
+    \item \textbf{Supera a la práctica actual.} La mejor regla simple, que alerta a los equipos que fallaron en los 30 días previos, acierta 5,5\,\% (1 de cada 18). El modelo duplica esa precisión.
+    \item \textbf{Aciertos con margen de acción.} Si se acepta una falla nueva dentro de los 3 días siguientes, acierta 1 de cada 6 alertas (17,3\,\%).
+    \item \textbf{Volumen operable.} Con 25 alertas diarias (unas 750 al mes), se anticiparían unas 80 fallas nuevas al mes para el día siguiente y unas 130 dentro de 3 días. Con el costo de nube de la Sección~\ref{subsec:costos}, cada falla anticipada cuesta menos de 1 USD de infraestructura.
+    \item \textbf{Ubica la falla.} Cada alerta indica el equipo, la central, el puerto PON y, cuando la topología lo permite, el armario de distribución al que enviar al personal técnico (Sección~\ref{subsec:alerta}).
+\end{itemize}
+
+\noindent
+El Plan de Negocios identifica cuatro ventajas competitivas: (1) \textbf{independencia del fabricante}, ya que PrediFibra no vende equipos y se conecta a la telemetría que el operador ya tiene; (2) \textbf{solo software}, sin sondas ni obras en las centrales; (3) \textbf{un equipo} que combina ciencia de datos, infraestructura en la nube y operación de redes fijas; y (4) \textbf{una barrera de entrada baja}, porque el piloto pagado permite medir el valor en la red propia antes de comprometer una licencia. El Cuadro~\ref{tab:competencia} sitúa la oferta frente a los tres tipos de competidores identificados en el plan. El competidor más directo es Adtran Mosaic One Clarity, que ofrece mantenimiento predictivo con inteligencia artificial y con el que uno de sus primeros clientes proyecta hasta un 75\,\% menos de tickets de falla al mes \cite{adtran_clarity}. PrediFibra no se diferencia por una tecnología exclusiva, sino por su foco en operadores medianos de Latinoamérica, su precio de entrada y su soporte local. Los fabricantes no publican sus precios, por lo que los valores de referencia son estimaciones del equipo que deben validarse con cotizaciones reales.
+
+\begin{table}[!htb]
+\centering
+\caption{Competencia y diferenciación (fuentes: Plan de Negocios de PrediFibra y sitios de los fabricantes; precios estimados por el equipo)}
+\label{tab:competencia}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|Q{3.3cm}|Z|Q{2.6cm}|Z|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{Competidor}} & \textcolor{white}{\textbf{Qué ofrece}} & \textcolor{white}{\textbf{Precio ref. (USD)}} & \textcolor{white}{\textbf{Diferencia de PrediFibra}} \\ \hline
+Suites de fabricantes con IA (Nokia Altiplano AI \cite{nokia_altiplano}, Adtran Mosaic One Clarity \cite{adtran_clarity}) & IA sobre la telemetría de la red y automatización, vendidas junto con proyectos de equipamiento & $\sim$150.000 al año & No depende del fabricante de la OLT y se vende a operadores medianos \\ \hline
+Monitoreo óptico con hardware (EXFO \cite{exfo_pon}, VIAVI \cite{viavi_onms}, Adtran ALM \cite{adtran_alm}) & Detección de fallas físicas en la fibra con sondas y OTDR instalados en las centrales & $\sim$120.000 (equipos y software) & No instala hardware: usa la telemetría existente \\ \hline
+Consultoras de analítica y equipos internos & Desarrollo a medida para un operador & $\sim$60.000 por proyecto & Producto replicable, con piloto de precio acotado \\ \hline
+\textbf{PrediFibra} & Predicción independiente del fabricante, solo software, con piloto pagado & 8.000 piloto; 90.000 licencia; 18.000 al año & --- \\ \hline
+\end{tabularx}
+\end{table}
+
+%------------------------------------------------------------------
+\subsection{Arquitectura del prototipo en Azure}
+\label{subsec:arq_azure}
+\noindent
+La plataforma se implementó en Microsoft Azure y se encuentra conectada de punta a punta, desde la recepción de la foto diaria hasta la creación del ticket y el envío del correo. Está diseñada para desplegarse en la suscripción de Azure que el operador ya utiliza. La Figura~\ref{fig:arq_azure} muestra sus seis etapas, que corresponden a los módulos M.1 a M.6 de la arquitectura de la Figura~\ref{MODELO ML}, ahora ejecutados de forma diaria en la nube.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{Esquemas e imágenes/Arquitectura Azure PrediFibra.png}
+    \caption{Arquitectura del prototipo PrediFibra en Microsoft Azure}
+    \label{fig:arq_azure}
+\end{figure}
+
+\begin{enumerate}
+    \item \textbf{Entrega (M.1):} el operador envía por correo la foto diaria de la red, generada a las 07:30.
+    \item \textbf{Aterrizaje (M.1):} el archivo se copia en la máquina virtual de procesamiento y se guarda un respaldo crudo en el \textit{datalake} (Blob Storage).
+    \item \textbf{Conversión (M.2):} los CSV se convierten a Parquet con DuckDB, leyéndolos en flujo, sin cargar todo el archivo en memoria.
+    \item \textbf{Variables (M.3):} se calculan las 25 variables del modelo con el mismo código del notebook de entrenamiento, y se cruza la topología del cliente para resolver el armario de distribución de cada equipo.
+    \item \textbf{Riesgo (M.4):} el modelo LightGBM entrega la probabilidad de falla óptica nueva de cada equipo y ordena la lista del día.
+    \item \textbf{Notificación (M.5 y M.6):} se crea un ticket por alerta en Zammad y se envía un correo al equipo de IT desde el dominio corporativo del operador.
+\end{enumerate}
+
+\noindent
+La máquina virtual de procesamiento se enciende solo durante la corrida diaria (unas 30 horas al mes), mientras que la de Zammad permanece siempre encendida. El acceso del personal se controla con Microsoft Entra ID, usando las mismas cuentas corporativas del operador. El diseño del ticket contempla que, al cerrarlo, el técnico registre la causa encontrada; ese registro es la retroalimentación que permitirá reentrenar el modelo con casos confirmados en terreno.
+
+%------------------------------------------------------------------
+\subsection{Diseño de la alerta}
+\label{subsec:alerta}
+\noindent
+El equipo de IT no recibe una probabilidad aislada, sino un equipo, una ubicación en la red y un riesgo. El Cuadro~\ref{tab:ticket} muestra los campos del ticket con una alerta real de la plataforma; la serie del equipo se muestra parcialmente oculta para resguardar los datos del cliente.
+
+\begin{table}[!htb]
+\centering
+\caption{Campos del ticket de alerta preventiva (ejemplo real)}
+\label{tab:ticket}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|Q{3.2cm}|Q{4.6cm}|Z|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{Campo}} & \textcolor{white}{\textbf{Ejemplo}} & \textcolor{white}{\textbf{Para qué sirve}} \\ \hline
+Equipo del cliente & HG8145X7-10, serie \texttt{HWTC****08B8} & Identificar la ONT alertada \\ \hline
+Central (OLT) & \texttt{PAN-LMT-CPO-PHM001} & Saber desde qué central se atiende el equipo \\ \hline
+Puerto PON & 0/16/15, ONU 2 & Ubicar el equipo en la red y revisar si otros equipos del puerto están afectados \\ \hline
+Armario FDH & CPG-015 & Definir a qué armario de distribución dirigir la salida a zona \\ \hline
+Riesgo para mañana & 25,3\,\%, el más alto de la lista del día & Priorizar las revisiones del día \\ \hline
+Causa encontrada & Se completa al cerrar el ticket & Confirmar el hallazgo y alimentar el reentrenamiento \\ \hline
+\end{tabularx}
+\end{table}
+
+\noindent
+El armario se obtiene cruzando el puerto PON con la tabla de topología entregada por el cliente. Esa tabla cubre 97 de las 178 centrales, por lo que hoy el 24,6\,\% de las alertas llega con el armario resuelto; en las demás el ticket indica ``armario: sin dato''. Aumentar esa cobertura depende de completar la tabla de topología, no de un nuevo desarrollo.\\\\
+
+\noindent
+Uno de los valores declarados en el Plan de Negocios es la transparencia: cada ticket debe explicar por qué se generó, para que el técnico confíe en la recomendación. El modelo ya permite calcular esos motivos con valores SHAP, aunque todavía no se incluyen en el ticket. Por ejemplo, el 29 de septiembre un equipo quedó en el puesto 5 de la lista, con un riesgo de 27,9\,\%, y sus motivos principales fueron: 7 alarmas ópticas en NCE durante la semana, un aumento de 307.348 errores de bit de subida desde el día anterior, una falla ocurrida el día anterior y 29 días con falla en el último mes. Al día siguiente, ese equipo tuvo efectivamente una falla nueva. Incorporar estos motivos al ticket es parte de la hoja de ruta (Sección~\ref{subsec:hoja_ruta}).
+
+%------------------------------------------------------------------
+\subsection{Costos de operación en Azure}
+\label{subsec:costos}
+\noindent
+El Cuadro~\ref{tab:costos_azure} detalla el costo mensual estimado de operar la plataforma en Azure, que asciende a \textbf{70,6 USD al mes}. El cálculo considera solo la infraestructura de nube para un cliente en operación; no incluye las horas del equipo (desarrollo, despliegue ni soporte).
+
+\begin{table}[!htb]
+\centering
+\caption{Costo mensual estimado de la plataforma en Microsoft Azure}
+\label{tab:costos_azure}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|Q{4.6cm}|Z|Q{2.2cm}|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{Servicio}} & \textcolor{white}{\textbf{Para qué se usa}} & \textcolor{white}{\textbf{USD al mes}} \\ \hline
+Virtual Machines, D4as v5 & Corrida diaria del procesamiento y del modelo, 30 horas al mes & 5,2 \\ \hline
+Virtual Machines, D2as v5 & Servidor de tickets Zammad, siempre encendido & 62,8 \\ \hline
+Blob Storage & 100 GB de datos crudos y procesados & 1,8 \\ \hline
+Communication Services, Email & 1.500 notificaciones al mes & 0,4 \\ \hline
+Transferencia de salida & 5 GB al mes & 0,4 \\ \hline
+Microsoft Entra ID & Identidad y control de acceso del personal & Incluido \\ \hline
+\textbf{Costo operativo mensual} & \textbf{Operación completa, sin desarrollo} & \textbf{70,6} \\ \hline
+\end{tabularx}
+\end{table}
+
+\noindent
+La misma arquitectura se cotizó en Amazon Web Services (71,2 USD al mes) y en Google Cloud (84,4 USD al mes). En Google Cloud el costo es mayor porque el envío de correos debe contratarse a un proveedor externo (SendGrid o Mailgun, unos 15 USD al mes), lo que suma una cuarta empresa a la cadena. Se eligió Azure por razones operativas más que de precio:
+\begin{itemize}
+    \item \textbf{El cliente ya opera sobre Microsoft:} el correo corporativo y Entra ID de Liberty están en producción, por lo que la plataforma se despliega en la suscripción existente, sin incorporar un proveedor nuevo.
+    \item \textbf{El correo sale del mismo dominio:} las notificaciones se envían con el dominio propio del operador y con sus registros de autenticación, lo que evita que lleguen como correo no deseado.
+    \item \textbf{La diferencia de costo es menor:} Azure es menos de 1\,\% más barato que AWS y cerca de 16\,\% más barato que Google Cloud.
+\end{itemize}
+
+\noindent
+Llevado a un semestre, el costo de nube es de 423,6 USD por cliente, dentro de los 500 USD por semestre que el Plan de Negocios asigna como costo de plataforma de cada suscripción. El servidor de Zammad explica el 89\,\% del costo mensual (62,8 de 70,6 USD): si un operador ya cuenta con su propio sistema de tickets y se integra con él, el costo de nube bajaría a unos 8 USD al mes.
+
+%------------------------------------------------------------------
+\subsection{Desempeño frente a las metas del Plan de Negocios}
+\label{subsec:metas}
+\noindent
+Los resultados se midieron en la semana de prueba del 22 al 29 de septiembre de 2026, que el modelo no utilizó en ninguna etapa de entrenamiento ni de selección: 1.854.618 equipo-días y 1.213 fallas ópticas nuevas. En esa semana el modelo ordena los equipos 17,5 veces mejor que el azar (PR-AUC de 0,0114; ROC-AUC de 0,684). El Cuadro~\ref{tab:resultados_h4} traduce ese resultado a la operación, según el número de alertas que se revisen cada día.
+
+\begin{table}[!htb]
+\centering
+\caption{Resultados en la semana de prueba (22 al 29 de septiembre de 2026)}
+\label{tab:resultados_h4}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|Q{2.4cm}|Z|Z|Z|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{Alertas por día}} & \textcolor{white}{\textbf{Precisión al día siguiente}} & \textcolor{white}{\textbf{Precisión dentro de 3 días}$^{*}$} & \textcolor{white}{\textbf{Fallas anticipadas (de 1.213)}} \\ \hline
+25 & 11,0\,\% (1 de cada 9) & 17,3\,\% (1 de cada 6) & 22 (1,8\,\%) \\ \hline
+50 & 9,3\,\% (1 de cada 11) & 16,7\,\% & 37 (3,1\,\%) \\ \hline
+100 & 6,9\,\% (1 de cada 14) & 14,2\,\% & 55 (4,5\,\%) \\ \hline
+\end{tabularx}
+
+\vspace{1mm}
+\parbox{\textwidth}{\footnotesize Referencias con 25 alertas diarias: regla de fallas en los 30 días previos, 5,5\,\% (1 de cada 18); azar, 0,065\,\% (1 de cada 1.529).\\
+$^{*}$ Medida del 22 al 27 de septiembre, los días de la semana con tres días siguientes observables.}
+\end{table}
+
+\noindent
+Además, el modelo pierde solo un 7\,\% de PR-AUC en centrales (OLT) que nunca vio y un 2\,\% en puertos PON nuevos, lo que indica que puede extenderse a otras zonas de la red.\\\\
+
+\noindent
+El Plan de Negocios fijó sus metas técnicas antes de contar con resultados, y el propio plan las declara como metas de diseño que el piloto debe confirmar. Los resultados actuales están por debajo de esas metas, por lo que se proponen metas realistas para el piloto, que se revisarán con los datos que este genere (Cuadro~\ref{tab:metas}).
+
+\begin{table}[!htb]
+\centering
+\caption{Metas del Plan de Negocios, resultados actuales y metas propuestas para el piloto}
+\label{tab:metas}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|Q{2.2cm}|Q{2.3cm}|Z|Z|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{Indicador}} & \textcolor{white}{\textbf{Meta del plan}} & \textcolor{white}{\textbf{Resultado actual}} & \textcolor{white}{\textbf{Meta propuesta para el piloto}} \\ \hline
+Anticipación & 7 días & 1 día (falla en la foto de mañana) & 1 a 3 días \\ \hline
+Precisión & $\geq$\,60\,\% & 11,0\,\% con 25 alertas diarias; 17,3\,\% si se acepta una falla dentro de 3 días & $\geq$\,10\,\% al día siguiente y $\geq$\,15\,\% dentro de 3 días con 25 alertas diarias, medidas cada semana, y siempre al menos el doble de la regla de fallas previas \\ \hline
+Recall (fallas anticipadas) & $\geq$\,80\,\% & 1,8\,\% con 25 alertas diarias; 18,4\,\% revisando 5.000 equipos al día & No se fija como meta del piloto. Se reporta cada semana el número de fallas anticipadas y confirmadas en terreno \\ \hline
+Visitas técnicas correctivas & $-20$\,\% en los segmentos monitoreados & Sin medir: no se dispone del registro de visitas & Medir en el primer mes la línea base de visitas correctivas y fijar con ella la meta de reducción \\ \hline
+\end{tabularx}
+\end{table}
+
+\noindent
+Las razones de la brecha y de las metas propuestas son las siguientes:
+\begin{itemize}
+    \item \textbf{Anticipación de 7 días:} con una sola foto diaria de la red, la mayoría de las fallas no deja señal previa: el 76\,\% de las fallas nuevas empieza el mismo día, después de la foto de las 07:30. Por eso la meta realista es de 1 a 3 días.
+    \item \textbf{Precisión de 60\,\%:} con una falla nueva cada 1.540 equipo-días, una precisión de 11\,\% ya equivale a concentrar las fallas 168 veces respecto del azar y a duplicar la regla que se usaría sin modelo. La meta del piloto se fija en el nivel medido, para verificar que se sostiene en la red del cliente.
+    \item \textbf{Recall de 80\,\%:} con 25 alertas diarias es inalcanzable por construcción, ya que se revisan muchos menos equipos que las cerca de 150 fallas nuevas diarias. Una cobertura de ese orden solo sería concebible combinando la predicción con la detección sobre mediciones horarias, que hoy es una propuesta y no está implementada.
+    \item \textbf{Mejora esperada con más historia:} al pasar de 7 a 38 días de entrenamiento, el desempeño en validación subió de 13,9 a 21,4 veces el azar (+54\,\%), sin señales de estancamiento. Los tres meses de piloto aportan historia adicional, por lo que se espera una mejora que deberá validarse con los datos del piloto.
+\end{itemize}
+
+%------------------------------------------------------------------
+\subsection{Limitaciones y hoja de ruta}
+\label{subsec:hoja_ruta}
+\noindent
+Las principales limitaciones del prototipo comercial son:
+\begin{itemize}
+    \item \textbf{Fallas sin señal previa:} el 76\,\% de las fallas nuevas empieza el mismo día después de la foto, y en ellas el modelo rinde 10 veces el azar; en el 24\,\% que empieza al día siguiente, antes de la foto, rinde 77 veces el azar.
+    \item \textbf{Baja cobertura:} con 25 alertas diarias se anticipa el 1,8\,\% de las fallas nuevas.
+    \item \textbf{Datos acotados:} el modelo se entrenó y evaluó con dos meses de datos de una sola operación (Panamá).
+    \item \textbf{Dependencia del historial:} en la semana de validación del 15 al 21 de septiembre, el 71\,\% de las 50 alertas diarias correspondió a equipos con fallas previas; en equipos sin historial de fallas el modelo rindió 7,2 veces el azar, frente a 21,7 en equipos con historial.
+    \item \textbf{Sin causas de cierre todavía:} el diseño contempla registrar la causa al cerrar cada ticket, pero aún no existen esos registros, por lo que no se sabe cuántas alertas sin falla posterior correspondían a degradaciones reales que no llegaron a generar alarma.
+    \item \textbf{Cobertura de topología y motivos:} el armario se resuelve en el 24,6\,\% de las alertas y los motivos SHAP aún no se incluyen en el ticket.
+\end{itemize}
+
+\noindent
+El Cuadro~\ref{tab:hoja_ruta} ordena los próximos pasos. El primero es el piloto pagado de tres meses, evaluado semanalmente, que es a la vez el producto de entrada del Plan de Negocios y el instrumento para validar las metas del Cuadro~\ref{tab:metas} en la red de un cliente.
+
+\begin{table}[H]
+\centering
+\caption{Hoja de ruta del prototipo comercial}
+\label{tab:hoja_ruta}
+\small
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\textwidth}{|Q{0.9cm}|Q{4.2cm}|Z|}
+\hline
+\rowcolor{black}
+\textcolor{white}{\textbf{Paso}} & \textcolor{white}{\textbf{Acción}} & \textcolor{white}{\textbf{Resultado esperado e indicador}} \\ \hline
+1 & Piloto pagado de 3 meses, evaluado semanalmente & Precisión semanal con 25 alertas diarias, comparación con la regla de fallas previas, fallas anticipadas y confirmadas en terreno, y línea base de visitas correctivas \\ \hline
+2 & Registro sistemático de la causa de cierre en cada ticket & Etiquetas confirmadas en terreno para medir la precisión real y reentrenar \\ \hline
+3 & Motivos SHAP en el ticket & Cada alerta explica por qué se generó (valor de transparencia del plan) \\ \hline
+4 & Tabla de topología completa & Armario resuelto en las 178 centrales, no solo en 97 \\ \hline
+5 & Reentrenamiento mensual con más historia & Verificar la mejora observada al aumentar los días de entrenamiento \\ \hline
+6 & Detección sobre mediciones horarias (propuesta, no implementada) & Complementar la predicción diaria con la detección de fallas en curso, para aumentar la cobertura \\ \hline
+7 & Extensión a otras operaciones de Liberty Latin America & Validar el desempeño en OLT de otros países antes de vender la licencia por unidad de negocio \\ \hline
+\end{tabularx}
+\end{table}
+
+
     \section{Conclusión}
 \noindent
-    El diseño preliminar expuesto en este documento establece una base arquitectónica robusta y viable para resolver la problemática del mantenimiento reactivo en las redes FTTH de Liberty Latinamerica.
-    A través de la definición de un pipeline que abarca desde la extracción y consolidación de la telemetría proveniente de las OLT y ONT, 
-    hasta la ingeniería de características y la aplicación de modelos de aprendizaje automático, se ha diseñado una solución capaz de procesar el comportamiento
-    histórico de la red para la detección temprana de anomalías físicas.\\\\
+    El proyecto avanzó desde el diseño preliminar de los primeros hitos hasta un prototipo comercial, PrediFibra, que funciona de punta a punta en Microsoft Azure: cada mañana recibe la foto diaria de la red de Liberty Latinamerica, calcula para cada equipo la probabilidad de una falla óptica nueva al día siguiente y genera tickets priorizados en Zammad, con aviso por correo al equipo de operaciones.
+    De este modo, la inteligencia analítica no queda aislada en un notebook, sino que se traduce en alertas que indican qué equipo revisar y hacia qué central, puerto PON y armario dirigir las salidas o el despliegue de personal técnico a zona.\\
 
     \noindent
-    Uno de los mayores valores de la arquitectura propuesta radica en su enfoque operativo. La integración del modelo predictivo con los sistemas de gestión y 
-    notificación (a través de la API de Zammad) asegura que la inteligencia analítica no quede aislada, sino que se traduzca de manera automática y visual en 
-    alertas accionables para el despliegue de personal técnico en terreno. Esto reduce la fricción cognitiva del usuario final y agiliza los tiempos de respuesta.
-    Con esta arquitectura de módulos y flujos de información ya definidos, los próximos pasos del proyecto se centrarán en la fase de prototipado y pruebas. 
-    Los esfuerzos técnicos inmediatos se dirigirán en el procesamiento del volumen de datos corporativos y el tratamiento del desbalanceo de clases característico de 
-    este tipo de fallas minoritarias y evaluación de algoritmos para el entrenamiento del modelo. 
-    Esto garantizará que el sistema final cumpla con la precisión necesaria para reducir los costos de salidas a terreno (OpEx) y asegurar la calidad del servicio (QoS) esperada.
+    En una semana de prueba que el modelo nunca vio, LightGBM ordenó los equipos 17,5 veces mejor que el azar: con 25 alertas diarias, 1 de cada 9 correspondió a una falla nueva al día siguiente, el doble que la mejor regla simple, y 1 de cada 6 si se acepta una falla dentro de los tres días siguientes.
+    Operar la plataforma cuesta 70,6 USD al mes en Azure, menos de 1 USD por falla anticipada, un monto que cabe dentro del costo de plataforma previsto en el Plan de Negocios.\\
+
+    \noindent
+    Los resultados también muestran los límites del enfoque actual. Con una sola foto diaria, la mayoría de las fallas no deja señal previa, y con 25 alertas diarias se anticipa menos del 2\,\% de las fallas nuevas.
+    Por eso, las metas técnicas del Plan de Negocios (siete días de anticipación, precisión de 60\,\% y recall de 80\,\%) no se alcanzan en esta etapa, y se proponen metas realistas para el piloto: una anticipación de uno a tres días y una precisión semanal de al menos 10\,\%, siempre al menos el doble de la regla de fallas previas.\\
+
+    \noindent
+    El siguiente paso es validar el valor del producto en la red de un cliente mediante el piloto pagado de tres meses, evaluado semanalmente. Ese piloto permitirá registrar la causa encontrada al cerrar cada ticket, medir la línea base de visitas correctivas, incorporar al ticket los motivos de cada alerta y acumular más historia para reentrenar el modelo.
+    Con esos datos, PrediFibra podrá demostrar si el mantenimiento de la red FTTH puede pasar de reaccionar a los reclamos de los clientes a prevenir las fallas antes de que estos las perciban.
 
     %Bibliografía
 \begin{thebibliography}{10}
@@ -1190,6 +1489,21 @@ O. A. A. Bhais, Z. I. Mohd Yusoh, M. F. Iskandar Othman, M. Sammour, N. Bahaman,
 
 \bibitem{ieee1012}
 ``IEEE Standard for System, Software, and Hardware Verification and Validation,'' \textit{IEEE Std 1012-2016}, IEEE, 2017.
+
+\bibitem{adtran_clarity}
+Adtran, ``Adtran launches Mosaic One Clarity to transform network operations with AI-based predictive maintenance and proactive assurance,'' comunicado de prensa, 14 oct. 2025. [En línea]. Disponible: {\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks\do-}\url{https://investors.adtran.com/news/news-details/2025/Adtran-launches-Mosaic-One-Clarity-to-transform-network-operations-with-AI-based-predictive-maintenance-and-proactive-assurance/default.aspx}}
+
+\bibitem{nokia_altiplano}
+Nokia, ``Altiplano AI.'' [En línea]. Disponible: \url{https://www.nokia.com/broadband-access/altiplano-ai/}
+
+\bibitem{adtran_alm}
+Adtran, ``ALM PON monitoring.'' [En línea]. Disponible: \url{https://www.adtran.com/en/products-and-services/alm-pon-monitoring}
+
+\bibitem{exfo_pon}
+EXFO, ``PON Network Testing.'' [En línea]. Disponible: \url{https://www.exfo.com/en/solutions/fixed-and-cable-operators/passive-optical-network-pon-testing/}
+
+\bibitem{viavi_onms}
+VIAVI Solutions, ``VIAVI Expands Capabilities for Industry-Leading Remote Fiber Test and Monitoring Portfolio,'' comunicado de prensa, 7 jun. 2021. [En línea]. Disponible: {\expandafter\def\expandafter\UrlBreaks\expandafter{\UrlBreaks\do-}\url{https://www.viavisolutions.com/en-us/news-releases/viavi-expands-capabilities-industry-leading-remote-fiber-test-and-monitoring-portfolio}}
 
 \end{thebibliography}
 \end{document}
